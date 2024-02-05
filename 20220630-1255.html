@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>如何在数据泄露中最小化损失？ - 离子键&#39;s blog</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="kikoshiken">
+<meta name="description" content="时事IT之家 6 月 21 日消息，据 M78 安全团队公众号昨日发文称，大学生学习软件超星学习通的数据库信息正在...">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?26625867">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="离子键's blog" type="application/atom+xml">
+</head>
+<body>
+<div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="https://kikoshiken.github.io">
+                首页
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/关于/index.html">
+                关于
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/追番/index.html">
+                追番
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            离子键&#39;s blog
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">离子键&#39;s blog</div>
+        <div class="single-column-header-subtitle">离子键的个人博客。</div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            离子键
+        </div>
+        <div class="nav-subtitle">
+            Van!shement<br>Th!s World!!
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/关于/index.html">
+            关于
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/追番/index.html">
+            追番
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    如何在数据泄露中最小化损失？
+                    <div class="post-meta">
+                        <time datetime="2022-06-30T03:55:00.000Z" itemprop="datePublished">
+                            2022-06-30 11:55
+                        </time>&nbsp;
+                        
+    
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h2 id="时事"><a href="#时事" class="headerlink" title="时事"></a>时事</h2><blockquote><p>IT之家 6 月 21 日消息，据 M78 安全团队公众号昨日发文称，大学生学习软件超星学习通的数据库信息正在被黑客在非法渠道售卖，兜售的数据包含<strong>姓名、手机号、性别、学校、学号、邮箱等信息 1 亿 7273 万条</strong>。</p>
+</blockquote>
+
+
+<h2 id="发生了什么？"><a href="#发生了什么？" class="headerlink" title="发生了什么？"></a>发生了什么？</h2><p>这次的数据泄露事件波及到所有使用“超星学习通”的学校，而内大正是其中之一。</p>
+<p>当然我也有亲自去确认事件真实性。</p>
+<p>社工库是匿名即时通讯软件 Telegram 上的一个非法频道，专门提供人肉服务。在上面输入我的手机号之后，最不想看到的结果还是出现了。<br><img src="/images/blog7img1.jpg" alt="img1"></p>
+<p>上面准确地注明了我的真实姓名、就读大学、学号、手机号、QQ。</p>
+<p>换言之，我的学习通账号中的所有信息都被披露了出来。有心人可以在知道上面信息的其中之一的情况下，<strong>免费的</strong>获取到我的所有其他信息。</p>
+<p>光是知道学校和学号这两项就足以致命，<strong>因为可以直接通过这两项信息就能得知我在哪个班级上课，直接对现实中的我构成人身威胁</strong>。</p>
+<p>而在付费的情况下，甚至还有可能拿到我的身份证上的<strong>住址</strong>等信息，以及学习通的<strong>明文密码</strong>。</p>
+<h2 id="超星学习通官方的反应"><a href="#超星学习通官方的反应" class="headerlink" title="超星学习通官方的反应"></a>超星学习通官方的反应</h2><p><img src="/images/blog7img2.png" alt="img2"></p>
+<p>我来翻译一下：<span style="color:red;">不知道、不知情、不关我事，我们已经报警了，你们这些刁民不要乱造谣啊，抹黑我们公司是要坐牢的。</span></p>
+<p>……</p>
+<p>说实话，这种做错事了还不承认，还趾高气扬地威胁受害者的态度，让我恼火至极。</p>
+<p>而现在国内的隐私保护法和网络安全法相对其他国家来说还不完善，所以这垃圾公司甚至不需要负任何责任！</p>
+<p>……</p>
+<p><strong>希望这无良公司明天就倒闭！</strong></p>
+<h2 id="挽救措施"><a href="#挽救措施" class="headerlink" title="挽救措施"></a>挽救措施</h2><p>已经泄露的数据删除不了的了，这些数据在暗网上不断地被人复制、贩卖，最终到达各种经营灰色产业的人的手里，利用这些信息对你进行骚扰、诈骗、投放广告……</p>
+<p>在就职的时候，还有可能被HR拿你简历上的信息去检索，看看有没有什么污点。（科技公司的一些懂技术的HR可能真会干这件事）</p>
+<p>你甚至可能因为在网上冒犯了某人，而被他提着砍刀上门找你“讲道理”。</p>
+<p>你能做的只能减小损失，当然也是十分有限。</p>
+<ul>
+<li>更换手机号</li>
+<li>放弃以前用的QQ</li>
+<li>更换大学？更换学号？改名换姓？把住址也换了？算了吧。</li>
+</ul>
+<h2 id="真正的减小损失的办法"><a href="#真正的减小损失的办法" class="headerlink" title="真正的减小损失的办法"></a>真正的减小损失的办法</h2><p>能做到上面的几点的人恐怕没几个吧。但这还不是最要命的，<strong>最要命的其实是密码</strong>这一环！<br>虽然不确定这次的事件是否把密码泄露出来了，但我们总归要做好最坏的打算。</p>
+<p>可能有的人会有疑惑，账号里面的信息都被泄露了，还纠结一个密码有什么意义？</p>
+<p><strong>问题大了！</strong></p>
+<p>我想现在很多人都是把所有的账号设置成同一个密码吧？只要我拿到了你的超星学习通的账号和密码，我也就拿到了QQ密码，百度密码，微博密码、乃至学信网、教务系统密码……</p>
+<p>可以做的事情太多了，我不仅可以让你社死，说不定还能让你退学，负债，甚至坐牢。</p>
+<p>如果你是这类人其中的一个，<strong>请立即把你所有平台的密码都改掉，并且确保所有平台没有重复的密码。</strong></p>
+<h2 id="我的做法"><a href="#我的做法" class="headerlink" title="我的做法"></a>我的做法</h2><p>我自然是不可能在做到每个平台都设置不同密码的同时还能不借助工具记住密码的，所以我用了一些比较专业的方法。</p>
+<p>比如说，记一个最容易记住的密码+网站特征，然后转换为MD5、SHA256等算法，然后截取其中一段作为密码。</p>
+<p>举例来说，我最容易记住的密码是114514，要给QQ设置密码，那么我会这样做：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">原始密码为：114514qq</span><br><span class="line">把原始密码转为MD5加密：9a59f18072a409e3afacd0ce5345b3ce</span><br><span class="line">添加一个大写字母，与MD5的前11位组合，作为密码：A9a59f18072a</span><br></pre></td></tr></table></figure>
+
+<p>某些网站要求密码必须包含大小写字母，而MD5算法只会生成一段包含小写字母和数字的随机输出，添加一个大写字母有助于提升通用性。</p>
+<p>可能有的人对于MD5等算法不熟悉。简单来说，MD5是一个单向的加密算法。它对一段数据经过运算后会得出一个唯一的结果，而根据这个结果是不能（或者说很难）反推出原本的数据。而在本例中，取MD5输出结果的其中一段作为密码，就更不可能被破解了。</p>
+<h2 id="具体操作过程"><a href="#具体操作过程" class="headerlink" title="具体操作过程"></a>具体操作过程</h2><ul>
+<li>确定原始密码。比如说，网易账号为 114514wy，百度账号为 114514bd</li>
+<li>转换为MD5。可以用网页比如 <a target="_blank" rel="noopener" href="http://www.md5.cz/">http://www.md5.cz/</a><br>  114514wy 转换为MD5之后为 057735cd7170e797a9cfcf316a672d33</li>
+<li>截取其中一段，位置和长度自己决定。建议在所有密码中统一标准。<br>  举个例子，我可以会从第二位开始，截取9个字符：57735cd71。我会对百度账号也做同样的操作。</li>
+<li>在其中的某个位置加入一个大写字符。这个大写字符和它的位置建议固定，理由同上，便于记忆。<br>  我会在首位加个字母K，百度账号也一样。这样你就得到了最终的密码：K57735cd71。你可以把这个密码存储到安全的地方比如说密码管理器APP。</li>
+</ul>
+<p>即便你没有在任何地方保存密码，你也可以再做一次上面的步骤得出相同的结果。整个记忆成本只有114514这段简单的密码和看起来复杂的操作过程而已。</p>
+<p>最终结果就是，你依靠着一个相同的密码：114514，生成了无数个不相同的，高安全系数的密码。而你只要看一眼网站名字就能得出你的密码。</p>
+<h2 id="本地、自动化的脚本"><a href="#本地、自动化的脚本" class="headerlink" title="本地、自动化的脚本"></a>本地、自动化的脚本</h2><p>可能有的人还是会觉得繁琐，并且认为通过外部网站计算MD5不够安全。<br>于是我简单的写了一段 Python 脚本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">input &#x3D; sys.argv[1]</span><br><span class="line"></span><br><span class="line">original &#x3D; &#39;114514&#39; + input	# 请把 114514 改成你自己的密码</span><br><span class="line">md5 &#x3D; hashlib.md5(original.encode(&#39;utf-8&#39;)).hexdigest()</span><br><span class="line">password &#x3D; &#39;K&#39; + md5[1:10] # 可以修改括号中的数值来决定截取的起点和长度。这里是从第2位开始，截取9个字符，并在首位添加大写字母K。</span><br><span class="line"></span><br><span class="line">print(input)</span><br><span class="line">print(password)</span><br></pre></td></tr></table></figure>
+
+<p>复制代码到笔记本里，改一下参数，保存为.py后缀的文件就可以了。<br>用起来也很简单，把脚本拖入到CMD里，空格，输入网站特征就行了。</p>
+<p><img src="/images/blog7img3.png" alt="img3"></p>
+<p>一步到位，输出的结果也和上面手动计算的结果一致。</p>
+<h2 id="在公共场合登录账户"><a href="#在公共场合登录账户" class="headerlink" title="在公共场合登录账户"></a>在公共场合登录账户</h2><p>如果你打算直接在别人的电脑上执行这些操作的话，我建议你还是打消这个念头。</p>
+<p>明眼人一眼就能看得出你在做什么，而且在操作中需要多次复制，留下各种痕迹，反而要冒更大的风险。</p>
+<p>密码再复杂也防不住社会工程，老老实实用手机验证码登录，或者打开你的密码库手动输进去吧。</p>
+<h2 id="2023-07-06更新"><a href="#2023-07-06更新" class="headerlink" title="2023.07.06更新"></a>2023.07.06更新</h2><p>太麻烦了，我已放弃这种方式（<br>还不如一个密码管理器之间生成来得安全快速实在（</p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <a class="newer-posts" href="/20230114-1430.html">
+        上一篇<br>市面常见固态硬盘盒信息整理
+    </a>
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/20211003-1620.html">
+        下一篇<br>咖啡因的浅显作用机理
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?26184515"></script>
+
+
+
+</body>
+</html>

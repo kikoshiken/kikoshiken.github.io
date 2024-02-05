@@ -1,0 +1,535 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>追番 - 离子键&#39;s blog</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="kikoshiken">
+<meta name="description" content="
+字体加粗的番剧是我觉得好看的番剧。
+
+2023.10
+Dr. Stone: New World Part 2
+S...">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?37525368">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="离子键's blog" type="application/atom+xml">
+</head>
+<body>
+<div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="https://kikoshiken.github.io">
+                首页
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/关于/index.html">
+                关于
+            </a>
+            
+            <a class="a-block drawer-menu-item active" href="/追番/index.html">
+                追番
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            离子键&#39;s blog
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">离子键&#39;s blog</div>
+        <div class="single-column-header-subtitle">离子键的个人博客。</div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            离子键
+        </div>
+        <div class="nav-subtitle">
+            Van!shement<br>Th!s World!!
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/关于/index.html">
+            关于
+        </a>
+        
+        <a class="a-block nav-link-item active" href="/追番/index.html">
+            追番
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    追番
+                    
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <hr>
+<p>字体加粗的番剧是我觉得好看的番剧。</p>
+<hr>
+<h3 id="2023-10"><a href="#2023-10" class="headerlink" title="2023.10"></a>2023.10</h3><ul>
+<li><strong>Dr. Stone: New World Part 2</strong></li>
+<li><strong>Spy × Family Season 2</strong></li>
+<li>ひきこまり吸血姫の悶々</li>
+</ul>
+<h3 id="2023-07"><a href="#2023-07" class="headerlink" title="2023.07"></a>2023.07</h3><ul>
+<li><strong>BanG Dream! It’s MyGO!!!!!</strong></li>
+<li><strong>Fate／strange Fake：Whispers of Dawn</strong></li>
+<li><strong>無職転生 〜異世界行ったら本気だす〜 S2</strong></li>
+<li><strong>好きな子がめがねを忘れた</strong></li>
+<li><strong>白聖女と黒牧師</strong></li>
+<li><strong>Ultraman S03</strong> (中译：机动奥特曼 第三季）</li>
+</ul>
+<h3 id="2023-04"><a href="#2023-04" class="headerlink" title="2023.04"></a>2023.04</h3><ul>
+<li><strong>僕の心のヤバイやつ</strong></li>
+<li><strong>【推しの子】</strong></li>
+<li><strong>天国大魔境</strong></li>
+<li><strong>久保さんは僕<del>モブ</del>を許さない</strong></li>
+<li><strong>私の百合はお仕事です！</strong></li>
+<li><strong>かぐや様は告らせたい-ファーストキッスは終わらない</strong></li>
+<li><strong>神無き世界のカミサマ活動</strong></li>
+<li><strong>Dr.STONE NEW WORLD</strong></li>
+<li><strong>スキップとローファー</strong></li>
+<li><strong>マッシュル-MASHLE-</strong></li>
+<li><strong>地獄楽</strong></li>
+<li><strong>ウマ娘 プリティーダービー</strong></li>
+<li>青のオーケストラ</li>
+<li>山田くんとLv999の恋をする</li>
+<li>おとなりに銀河</li>
+<li>機動戦士ガンダム 水星の魔女 S2</li>
+<li>マイホームヒーロー</li>
+</ul>
+<h3 id="2023-01"><a href="#2023-01" class="headerlink" title="2023.01"></a>2023.01</h3><ul>
+<li><strong>お兄ちゃんはおしまい！</strong></li>
+<li><strong>ニーア オートマタ</strong></li>
+<li>ロマンティック・キラー</li>
+<li>転生王女と天才令嬢の魔法革命</li>
+<li>極主夫道 S2</li>
+<li>犬になったら好きな人に拾われた。</li>
+<li><del><strong>異世界おじさん</strong></del></li>
+</ul>
+<h3 id="2022-10"><a href="#2022-10" class="headerlink" title="2022.10"></a>2022.10</h3><ul>
+<li><del><strong>異世界おじさん</strong></del></li>
+<li><strong>モブサイコ100 III</strong></li>
+<li><strong>チェンソーマン</strong></li>
+<li><strong>ぼっち・ざ・ろっく！</strong></li>
+<li><strong>機動戦士ガンダム水星の魔女</strong></li>
+<li><strong>恋愛フロップス</strong></li>
+<li>Spy x Family</li>
+<li><del>アキバ冥途戦争</del></li>
+</ul>
+<h3 id="2022-07"><a href="#2022-07" class="headerlink" title="2022.07"></a>2022.07</h3><ul>
+<li><strong>異世界おじさん</strong></li>
+<li><strong>Cyberpunk Edgerunners</strong></li>
+<li><strong>RWBY 氷雪帝国</strong></li>
+<li><strong>よふかしのうた</strong></li>
+<li>ロマンティック・キラー</li>
+<li>Summer Time Rendering</li>
+<li>Engage Kiss</li>
+<li>Lycoris Recoil</li>
+<li>賭ケグルイ双</li>
+<li><del>Love Live! Superstar!! S2</del></li>
+</ul>
+<h3 id="2022-04"><a href="#2022-04" class="headerlink" title="2022.04"></a>2022.04</h3><ul>
+<li><strong>相合之物</strong></li>
+<li><strong>辉夜大小姐想让我告白 -Ultra Romantic-</strong></li>
+<li><strong>Estab Life</strong></li>
+<li><strong>街角魔族 2丁目</strong></li>
+<li><strong>夏日重现</strong></li>
+<li>古见同学有交流障碍症 第二季</li>
+<li>间谍过家家</li>
+</ul>
+<h3 id="2022-01"><a href="#2022-01" class="headerlink" title="2022.01"></a>2022.01</h3><ul>
+<li><strong>擅长捉弄的高木同学 S3</strong></li>
+<li><strong>与变成了异世界美少女的大叔一起冒险</strong></li>
+<li><strong>更衣人偶坠入爱河</strong></li>
+<li><strong>进击的巨人 最终季 Part.2</strong></li>
+<li><strong>秘密内幕～女警的反击～</strong></li>
+<li>Slow Loop</li>
+<li>现实主义勇者的王国再建记 S2</li>
+</ul>
+<h3 id="2021-10"><a href="#2021-10" class="headerlink" title="2021.10"></a>2021.10</h3><ul>
+<li><strong>86 -不存在的战区- S2</strong></li>
+<li><strong>古见同学有交流障碍症</strong></li>
+<li><strong>关于前辈很烦人的事</strong></li>
+<li><strong>极主夫道 第二季</strong></li>
+<li><strong>看得见的女孩</strong></li>
+<li><strong>逆转世界的电池少女</strong></li>
+<li><strong>宿命回响</strong></li>
+<li><strong>无职转生 ～在异世界认真地活下去～ 第二季</strong></li>
+<li>加油！同期酱</li>
+<li>星球大战：幻境（部分单元好看，比如<strong>村の花嫁</strong> ）</li>
+</ul>
+<h3 id="2021-07"><a href="#2021-07" class="headerlink" title="2021.07"></a>2021.07</h3><ul>
+<li><strong>Sonny Boy</strong></li>
+<li><strong>Love Live! Superstar!!</strong></li>
+<li><strong>女友成双</strong></li>
+<li><strong>我们的重制人生</strong></li>
+<li><strong>小林家的龙女仆S</strong></li>
+<li><strong>异世界迷宫黑心企业</strong></li>
+<li><strong>迦希女王不会放弃</strong></li>
+<li>现实主义勇者的王国再建记</li>
+<li>桃子男孩渡海而来</li>
+<li>见面之后5秒开始战斗</li>
+</ul>
+<h3 id="2021-04"><a href="#2021-04" class="headerlink" title="2021.04"></a>2021.04</h3><ul>
+<li><strong>86 -不存在的战区-</strong></li>
+<li><strong>SSSS.DYNAZENON</strong></li>
+<li><strong>Vivy -Fluorite Eye’s Song-</strong></li>
+<li><strong>东离剑游纪 第三季</strong></li>
+<li><strong>打了300年的史莱姆，不知不觉就练到了满级</strong></li>
+<li><strong>极主夫道</strong></li>
+<li>如果究极进化的完全沉浸RPG比现实更垃圾的话</li>
+<li>剃须。然后捡到女高中生</li>
+<li>致不灭的你</li>
+<li>异世界魔王与召唤少女的奴隶魔术 S2</li>
+</ul>
+<h3 id="2021-01"><a href="#2021-01" class="headerlink" title="2021.01"></a>2021.01</h3><ul>
+<li>奇蛋物语</li>
+<li><strong>进击的巨人 最终季</strong></li>
+<li><strong>Dr.STONE STONE WARS</strong></li>
+<li><strong>无职转生～到了异世界就拿出真本事～</strong></li>
+<li><strong>工作细胞BLACK</strong></li>
+<li>只有我能进入的隐藏迷宫～低调锻炼化身世界最强～</li>
+<li>好比是最终迷宫前的少年到新手村生活一般的故事</li>
+<li>工作细胞 第二季</li>
+<li>堀与宫村</li>
+</ul>
+<h3 id="2020-10"><a href="#2020-10" class="headerlink" title="2020.10"></a>2020.10</h3><ul>
+<li><strong>Love Live! 虹咲学园学园偶像同好会</strong></li>
+</ul>
+<h3 id="2020-04"><a href="#2020-04" class="headerlink" title="2020.04"></a>2020.04</h3><ul>
+<li><strong>辉夜大小姐想让我告白？<del>～天才们的恋爱头脑战～</del></strong></li>
+<li>转生成为了只有乙女游戏破灭Flag的邪恶大小姐</li>
+</ul>
+<h3 id="2020-01"><a href="#2020-01" class="headerlink" title="2020.01"></a>2020.01</h3><ul>
+<li><strong>恋爱小行星</strong></li>
+<li><strong>异度侵入 ID:INVADED</strong></li>
+<li><strong>理科生坠入情网，故尝试证明。</strong></li>
+<li><strong>因为太怕痛就全点防御力了</strong></li>
+</ul>
+<h3 id="2019-10"><a href="#2019-10" class="headerlink" title="2019.10"></a>2019.10</h3><ul>
+<li><strong>我，不是说了能力要平均值么！</strong></li>
+<li><strong>这个勇者明明超强却过分慎重</strong></li>
+<li>爱书的下克上：为了成为图书管理员不择手段！</li>
+</ul>
+<h3 id="2019-07"><a href="#2019-07" class="headerlink" title="2019.07"></a>2019.07</h3><ul>
+<li><strong>石纪元/Dr.STONE</strong></li>
+<li><strong>女高中生的虚度日常</strong></li>
+<li><strong>街角魔族</strong></li>
+<li>你遭难了吗？</li>
+<li>只要长得可爱，即使是变态你也喜欢吗？</li>
+</ul>
+<h3 id="2019-04"><a href="#2019-04" class="headerlink" title="2019.04"></a>2019.04</h3><ul>
+<li><strong>鬼灭之刃</strong></li>
+<li><strong>机动奥特曼</strong></li>
+</ul>
+<h3 id="2019-01"><a href="#2019-01" class="headerlink" title="2019.01"></a>2019.01</h3><ul>
+<li><strong>天使降临到我身边 <em>S1+M</em></strong></li>
+<li><strong>多罗罗</strong></li>
+<li><strong>辉夜大小姐想让我告白～天才们的恋爱头脑战～</strong></li>
+<li>盾之勇者成名录</li>
+<li>同居人是猫</li>
+</ul>
+<hr>
+<p>我大概就是这个时间点开始接触动漫作品的，这个时间点以前的番剧我都是一次性看完整个系列的，所以从这里开始，拥有多个季度的同一部作品将被合并到第一季。<br>因为都是在知道了风评的情况下有选择性地补番，所以这些番剧大多质量都很高。</p>
+<hr>
+<h3 id="2018-10"><a href="#2018-10" class="headerlink" title="2018.10"></a>2018.10</h3><ul>
+<li><strong>电光超人古力特/SSSS.GRIDMAN</strong></li>
+<li><strong>青春猪头少年不会梦到兔女郎学姐 <em>S1+M</em></strong></li>
+<li><strong>来自多彩世界的明天</strong></li>
+<li>佐贺偶像是传奇</li>
+</ul>
+<h3 id="2018-07"><a href="#2018-07" class="headerlink" title="2018.07"></a>2018.07</h3><ul>
+<li><strong>工作细胞</strong></li>
+<li><strong>杀戮的天使/Angels of Death</strong></li>
+<li>异世界魔王与召唤少女的奴隶魔术</li>
+</ul>
+<h3 id="2018-04"><a href="#2018-04" class="headerlink" title="2018.04"></a>2018.04</h3><ul>
+<li><strong>赛马娘 Pretty Derby <em>S1+S2</em></strong></li>
+<li><strong>刀剑神域外传</strong></li>
+<li><strong>3D彼女/三次元女友 <em>S1+S2</em></strong></li>
+<li>琴之森 <em>M+S1+S2</em></li>
+</ul>
+<h3 id="2018-01"><a href="#2018-01" class="headerlink" title="2018.01"></a>2018.01</h3><ul>
+<li><strong>擅长捉弄的高木同学 <em>S1+S2</em></strong></li>
+<li><strong>紫罗兰永恒花园 <em>S1+M1+M2</em></strong></li>
+<li><strong>恋如雨止/爱在雨过天晴时</strong></li>
+<li><strong>龙王的工作</strong></li>
+<li><strong>恶魔人Crybaby</strong></li>
+<li>DARLING in the FRANXX</li>
+</ul>
+<h3 id="2017-10"><a href="#2017-10" class="headerlink" title="2017.10"></a>2017.10</h3><ul>
+<li><strong>调教咖啡厅</strong></li>
+<li><strong>魔法使的新娘  S1+OAD</strong></li>
+<li>此花亭奇谭</li>
+</ul>
+<h3 id="2017-07"><a href="#2017-07" class="headerlink" title="2017.07"></a>2017.07</h3><ul>
+<li>狂赌之渊 <em>S1+S2</em></li>
+</ul>
+<h3 id="2017-04"><a href="#2017-04" class="headerlink" title="2017.04"></a>2017.04</h3><ul>
+<li><strong>月色真美</strong></li>
+<li><strong>Re:CREATORS</strong></li>
+</ul>
+<h3 id="2017-01"><a href="#2017-01" class="headerlink" title="2017.01"></a>2017.01</h3><ul>
+<li><strong>珈百璃的堕落</strong></li>
+<li><strong>小林家的龙女仆</strong></li>
+</ul>
+<h3 id="2016-10"><a href="#2016-10" class="headerlink" title="2016.10"></a>2016.10</h3><ul>
+<li><strong>GAMERS电玩咖</strong></li>
+</ul>
+<h3 id="2016-07"><a href="#2016-07" class="headerlink" title="2016.07"></a>2016.07</h3><ul>
+<li><strong>东离剑游纪 <em>S1+M1+S2+M2</em></strong></li>
+<li><strong>灵能百分百 <em>S1+S2</em></strong></li>
+<li><strong>这个美术社大有问题！</strong></li>
+</ul>
+<h3 id="2016-04"><a href="#2016-04" class="headerlink" title="2016.04"></a>2016.04</h3><ul>
+<li><strong>线上游戏的老婆不可能是女生</strong></li>
+<li><strong>Re：从零开始的异世界生活</strong></li>
+<li><strong>她与她的猫</strong></li>
+</ul>
+<h3 id="2016-01"><a href="#2016-01" class="headerlink" title="2016.01"></a>2016.01</h3><ul>
+<li><strong>只有我不存在的城市</strong></li>
+<li>无彩限的怪灵世界</li>
+</ul>
+<h3 id="2015-10"><a href="#2015-10" class="headerlink" title="2015.10"></a>2015.10</h3><ul>
+<li>一拳超人/One Punch Man <em><strong>S1</strong>+S2</em></li>
+</ul>
+<h3 id="2015-07"><a href="#2015-07" class="headerlink" title="2015.07"></a>2015.07</h3><ul>
+<li><strong>干物妹！小埋 <em>S1+S2</em></strong></li>
+<li>乱步奇谭</li>
+</ul>
+<h3 id="2015-04"><a href="#2015-04" class="headerlink" title="2015.04"></a>2015.04</h3><ul>
+<li><strong>在地下城邂逅是否搞错了什么</strong></li>
+<li>可塑性记忆</li>
+</ul>
+<h3 id="2015-01"><a href="#2015-01" class="headerlink" title="2015.01"></a>2015.01</h3><ul>
+<li><strong>新妹魔王的契约者</strong></li>
+</ul>
+<h3 id="2014-10"><a href="#2014-10" class="headerlink" title="2014.10"></a>2014.10</h3><ul>
+<li><strong>我，要成为双马尾。</strong></li>
+<li><strong>灰色系列</strong></li>
+<li><strong>寄生兽 生命的准则</strong></li>
+</ul>
+<h3 id="2014-07"><a href="#2014-07" class="headerlink" title="2014.07"></a>2014.07</h3><ul>
+<li><strong>月刊少女野崎君</strong></li>
+<li>东京喰种/东京食尸鬼 <em><strong>S1+S2</strong>+S3</em></li>
+</ul>
+<h3 id="2014-04"><a href="#2014-04" class="headerlink" title="2014.04"></a>2014.04</h3><ul>
+<li><strong>游戏人生/NO GAME NO LIFE <em>S1+M</em></strong></li>
+<li><strong>请问您今天要来点兔子吗？ <em>S1</em></strong></li>
+<li><strong>一周的朋友</strong></li>
+<li>漆黑的子弹</li>
+<li>甘城光辉游乐园</li>
+</ul>
+<h3 id="2014-01"><a href="#2014-01" class="headerlink" title="2014.01"></a>2014.01</h3><ul>
+<li>野良神 <em>S1+S2</em></li>
+</ul>
+<h3 id="2013-10"><a href="#2013-10" class="headerlink" title="2013.10"></a>2013.10</h3><ul>
+<li><strong>双斩少女</strong></li>
+<li><strong>邻座的怪同学</strong></li>
+<li>境界的彼方</li>
+</ul>
+<h3 id="2013-07"><a href="#2013-07" class="headerlink" title="2013.07"></a>2013.07</h3><ul>
+<li><strong>跟班×服务/SERVANT×SERVICE</strong></li>
+<li><strong>魔法少女☆伊莉雅 <em>S1+S2+S3+S4+M1</em></strong></li>
+</ul>
+<h3 id="2013-04"><a href="#2013-04" class="headerlink" title="2013.04"></a>2013.04</h3><ul>
+<li><strong>进击的巨人 <em>S1+S2+S3</em></strong></li>
+<li><strong>我的青春恋爱物语果然有问题 <em>S1+S2</em></strong></li>
+<li><strong>打工吧！魔王大人</strong></li>
+<li>约会大作战 <em>S1+S2+S3</em></li>
+</ul>
+<h3 id="2013-01"><a href="#2013-01" class="headerlink" title="2013.01"></a>2013.01</h3><ul>
+<li><strong>魔王勇者</strong></li>
+<li><strong>Love Live! <em>S1+S2+M</em></strong></li>
+</ul>
+<h3 id="2012-10"><a href="#2012-10" class="headerlink" title="2012.10"></a>2012.10</h3><ul>
+<li><strong>中二病也要谈恋爱 <em>S1+S2+M</em></strong></li>
+<li><strong>心理测量者 <em>S1+S2+M1+M2SS+S3+S3FI</em></strong></li>
+<li>樱花庄的宠物女孩</li>
+</ul>
+<h3 id="2012-07"><a href="#2012-07" class="headerlink" title="2012.07"></a>2012.07</h3><ul>
+<li><strong>刀剑神域系列 <em>S1+S2+M1+M2+M3</em></strong></li>
+</ul>
+<h3 id="2012-01"><a href="#2012-01" class="headerlink" title="2012.01"></a>2012.01</h3><ul>
+<li><strong>男子高中生的日常</strong></li>
+<li>恶魔高校D×D S1+S2+S3+S4</li>
+</ul>
+<h3 id="2012-04"><a href="#2012-04" class="headerlink" title="2012.04"></a>2012.04</h3><ul>
+<li><strong>一起一起这里那里</strong></li>
+<li><strong>冰菓</strong></li>
+</ul>
+<h3 id="2011-10"><a href="#2011-10" class="headerlink" title="2011.10"></a>2011.10</h3><ul>
+<li><strong>Fate/Zero</strong></li>
+</ul>
+<h3 id="2011-04"><a href="#2011-04" class="headerlink" title="2011.04"></a>2011.04</h3><ul>
+<li><strong>命运石之门 <em>S1</em></strong></li>
+<li>青之驱魔师 <em>S1</em></li>
+</ul>
+<h3 id="2011-01"><a href="#2011-01" class="headerlink" title="2011.01"></a>2011.01</h3><ul>
+<li><strong>GOSICK</strong></li>
+</ul>
+<h3 id="2010-10"><a href="#2010-10" class="headerlink" title="2010.10"></a>2010.10</h3><ul>
+<li><strong>爆漫王/食梦者 <em>S1+S2+S3</em></strong></li>
+<li><strong>缘之空</strong></li>
+</ul>
+<h3 id="2010-04"><a href="#2010-04" class="headerlink" title="2010.04"></a>2010.04</h3><ul>
+<li><strong>天使的心跳/Angel Beats!</strong></li>
+</ul>
+<h3 id="2010-01"><a href="#2010-01" class="headerlink" title="2010.01"></a>2010.01</h3><ul>
+<li><strong>Fate/Stay Night Unlimited Blade Works</strong></li>
+</ul>
+<h3 id="2010年以前"><a href="#2010年以前" class="headerlink" title="2010年以前"></a>2010年以前</h3><ul>
+<li><strong>Fate/stay night 2006</strong></li>
+<li><strong>死亡笔记/Death Note</strong></li>
+<li><strong>狼与香辛料 S1+S2</strong></li>
+<li>龙与虎</li>
+<li><strong>轻音少女/K-ON <em>S1+S2+M</em></strong></li>
+<li>公主恋人 <em>WEB+BD+OVA</em></li>
+<li><strong>某科学的超电磁炮 <em>S1+S2+S3</em></strong></li>
+</ul>
+
+                </div>
+            </div>
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?69834757"></script>
+
+
+
+</body>
+</html>

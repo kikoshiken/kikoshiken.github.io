@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>PVE 及 TrueNAS CORE 的安装与简单设置 - 离子键&#39;s blog</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="kikoshiken">
+<meta name="description" content="J4125 自用备份，不是什么详尽的教程。
+PVE 更换企业源付费订阅才能使用企业源，否则得更换非订阅源才能正常更...">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?47686477">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="离子键's blog" type="application/atom+xml">
+</head>
+<body>
+<div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="https://kikoshiken.github.io">
+                首页
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/关于/index.html">
+                关于
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/追番/index.html">
+                追番
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            离子键&#39;s blog
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">离子键&#39;s blog</div>
+        <div class="single-column-header-subtitle">离子键的个人博客。</div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            离子键
+        </div>
+        <div class="nav-subtitle">
+            Van!shement<br>Th!s World!!
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/关于/index.html">
+            关于
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/追番/index.html">
+            追番
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    PVE 及 TrueNAS CORE 的安装与简单设置
+                    <div class="post-meta">
+                        <time datetime="2023-07-26T06:10:00.000Z" itemprop="datePublished">
+                            2023-07-26 14:10
+                        </time>&nbsp;
+                        
+    
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <p>J4125 自用备份，不是什么详尽的教程。</p>
+<h2 id="PVE-更换企业源"><a href="#PVE-更换企业源" class="headerlink" title="PVE 更换企业源"></a>PVE 更换企业源</h2><p>付费订阅才能使用企业源，否则得更换非订阅源才能正常更新 PVE。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PVE -&gt; 更新 -&gt; 存储库</span><br><span class="line">禁用 https:&#x2F;&#x2F;enterprise.proxmox.com&#x2F;debian&#x2F;pve</span><br><span class="line">添加 No-Subscription</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="PVE-关闭-KSM"><a href="#PVE-关闭-KSM" class="headerlink" title="PVE 关闭 KSM"></a>PVE 关闭 KSM</h2><p>在内存冗余的情况下，关闭 KSM （内存去重）以节省 CPU 开销。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable ksmtuned</span><br><span class="line">systemctl stop ksmtuned</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="PVE-删除-local-lvm-并把空间合并至-local"><a href="#PVE-删除-local-lvm-并把空间合并至-local" class="headerlink" title="PVE 删除 local-lvm 并把空间合并至 local"></a>PVE 删除 local-lvm 并把空间合并至 local</h2><p>快照等功能对我来说暂时不需要。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">数据中心 -&gt; 存储 -&gt; local-lvm：删除；</span><br><span class="line">数据中心 -&gt; 存储 -&gt; local -&gt; 编辑 -&gt; 内容：勾选所有内容；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lvremove &#x2F;dev&#x2F;pve&#x2F;data</span><br><span class="line">lvextend -rl +100%FREE &#x2F;dev&#x2F;pve&#x2F;root</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="PVE-开启-PCI-直通"><a href="#PVE-开启-PCI-直通" class="headerlink" title="PVE 开启 PCI 直通"></a>PVE 开启 PCI 直通</h2><ul>
+<li><p>修改 grub<br><code>vi /etc/default/grub</code><br><code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet amd_iommu=on iommu=pt&quot;</code><br><code>update-grub</code></p>
+</li>
+<li><p>添加内核模块<br><code>vi /etc/modules</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vfio</span><br><span class="line"> vfio_iommu_type1</span><br><span class="line"> vfio_pci</span><br><span class="line"> vfio_virqfd</span><br></pre></td></tr></table></figure>
+<p><code>update-initramfs -u -k all</code></p>
+</li>
+<li><p>重启</p>
+</li>
+</ul>
+<h2 id="PVE-给垃圾-RTL-8125B-网卡更换官方驱动"><a href="#PVE-给垃圾-RTL-8125B-网卡更换官方驱动" class="headerlink" title="PVE 给垃圾 RTL 8125B 网卡更换官方驱动"></a>PVE 给垃圾 RTL 8125B 网卡更换官方驱动</h2><p>默认的驱动是<code>r8169</code>，有断流情况。<br>建议使用<a target="_blank" rel="noopener" href="https://github.com/devome/realtek-r8125-dkms">此仓库</a>中的驱动，该驱动启用了TX多队列及RSS并禁用ASPM。<br>确保 PVE 的软件源没问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update &amp;&amp; apt upgrade   # 更新 PVE</span><br><span class="line">reboot   # 重启以进入最新内核</span><br></pre></td></tr></table></figure>
+<p>安装内核头</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">headers&#x3D;$(dpkg -l | awk &#39;&#x2F;^ii.+kernel-[0-9]+\.[0-9]+\.[0-9]&#x2F;&#123;gsub(&#x2F;-signed&#x2F;, &quot;&quot;); gsub(&#x2F;kernel&#x2F;, &quot;headers&quot;); print $2&#125;&#39; | tr &quot;\n&quot; &quot; &quot;)</span><br><span class="line">eval apt install -y $headers</span><br></pre></td></tr></table></figure>
+<p>之后把仓库中的软件包安装上去，安装过程略。<br>可通过<code>ethtool -i enp3s0</code>查看当前驱动，其中<code>enp3s0</code>为网口。<br>大概率还是<code>r8169</code>，这样的话还需要屏蔽<code>r8169</code>，更新引导。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;blacklist r8169&#39; &gt;&gt; &#x2F;etc&#x2F;modprobe.d&#x2F;blacklist-r8169.conf</span><br><span class="line">update-grub</span><br><span class="line">update-initramfs -u -k all</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<p>重启后可再次通过<code>ethtool -i enp3s0</code>确认驱动；<br>及通过<code>cat /proc/interrupts | grep -P &#39;enp3s0|CPU0&#39;</code>查看中断数。<br>此时可在虚拟机的<code>VirtIO</code>网卡中设置<code>Multiqueue</code>了。<br>在虚拟机中可使用<code>ethtool -l eth0</code>来验证开启网卡多队列。</p>
+<h2 id="PVE-创建虚拟机"><a href="#PVE-创建虚拟机" class="headerlink" title="PVE 创建虚拟机"></a>PVE 创建虚拟机</h2><p>在特定情况下，按以下配置创建可提高运行效率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">各 SCSI 控制器：VirtIO SCSI single</span><br><span class="line">系统 -&gt; 机型：q35</span><br><span class="line">磁盘 -&gt; 格式：raw，缓存：Write back（不安全）</span><br><span class="line">CPU -&gt; 类别：host &#x2F; Host，启用NUMA</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="PVE-给虚拟机开启-virtio-gl"><a href="#PVE-给虚拟机开启-virtio-gl" class="headerlink" title="PVE 给虚拟机开启 virtio-gl"></a>PVE 给虚拟机开启 virtio-gl</h2><p>virtio-gl，通常称为 VirGL，是一种用于虚拟机内部的虚拟 3D GPU，可以将工作负载卸载到主机 GPU，而无需特定的驱动程序，也不会完全绑定主机 GPU，从而允许在多个客户机和/或主机之间重用。</p>
+<p>需要给 PVE 宿主机安装额外的软件包。<br><code>apt install libgl1 libegl1</code><br>然后在虚拟机的<code>硬件 -&gt; 显示</code>选择<code>VirGL GPU</code>。</p>
+<h2 id="PVE-虚拟机-允许外部-VNC-访问"><a href="#PVE-虚拟机-允许外部-VNC-访问" class="headerlink" title="PVE 虚拟机 允许外部 VNC 访问"></a>PVE 虚拟机 允许外部 VNC 访问</h2><p>允许外部的 VNC Viewer 远程连接 VM ID 为 100 的虚拟机，IP 为 PVE 物理机所在 IP，端口为5901。<br><code>qm set 101 -args &quot;-vnc :1&quot;</code></p>
+<h2 id="PVE-RDM-裸磁盘映射"><a href="#PVE-RDM-裸磁盘映射" class="headerlink" title="PVE RDM 裸磁盘映射"></a>PVE RDM 裸磁盘映射</h2><p>查看需要映射的磁盘的 ID。<br><code>ls -la /dev/disk/by-id/|grep -v dm|grep -v lvm|grep -v part</code><br>输出例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">drwxr-xr-x 2 root root 300 Aug 10 23:03 .</span><br><span class="line">drwxr-xr-x 7 root root 140 Aug 10 23:03 ..</span><br><span class="line">lrwxrwxrwx 1 root root  13 Aug 10 23:02 nvme-eui.5cd2e4bf63af0100 -&gt; ..&#x2F;..&#x2F;nvme0n1</span><br><span class="line">lrwxrwxrwx 1 root root  13 Aug 10 23:02 nvme-INTEL_SSDPEK1A118GA_BTOC14120WMP118B -&gt; ..&#x2F;..&#x2F;nvme0n1</span><br></pre></td></tr></table></figure>
+<p>修改此命令：<br><code>qm set &lt;vmid&gt; --scsiX /dev/disk/by-id/xxxxxxx</code><br>例如：<br><code>qm set &lt;vmid&gt; --scsi2 /dev/disk/by-id/nvme-eui.5cd2e4bf63af0100</code></p>
+<h2 id="TrueNAS-CORE-开启-RTL-8125B-网卡支持"><a href="#TrueNAS-CORE-开启-RTL-8125B-网卡支持" class="headerlink" title="TrueNAS CORE 开启 RTL 8125B 网卡支持"></a>TrueNAS CORE 开启 RTL 8125B 网卡支持</h2><p>最新版已经内置了 RTL 2.5G 网卡的驱动，但存在些许问题，没有默认开启。<br>修改以下文件；添加：<br><code>vi /boot/loader.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># RTL 8125B</span><br><span class="line">if_re_load&#x3D;&quot;YES&quot;</span><br><span class="line">if_re_name&#x3D;&quot;&#x2F;boot&#x2F;modules&#x2F;if_re.ko&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="TrueNAS-CORE-简单设置"><a href="#TrueNAS-CORE-简单设置" class="headerlink" title="TrueNAS CORE 简单设置"></a>TrueNAS CORE 简单设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System -&gt; General -&gt; Localization -&gt;</span><br><span class="line">Language: Simplified Chinese</span><br><span class="line">Timezone: Asia&#x2F;Shanghai</span><br></pre></td></tr></table></figure>
+<p><code>系统 -&gt; 高级 -&gt; 内核：启用自动调节</code></p>
+<h2 id="TrueNAS-CORE-全闪阵列下-设置内存仅缓存元数据"><a href="#TrueNAS-CORE-全闪阵列下-设置内存仅缓存元数据" class="headerlink" title="TrueNAS CORE 全闪阵列下 设置内存仅缓存元数据"></a>TrueNAS CORE 全闪阵列下 设置内存仅缓存元数据</h2><p><code>zfs set primarycache=metadata pool/datab</code></p>
+<h2 id="TrueNAS-CORE-监狱-pkg-更换中科大源"><a href="#TrueNAS-CORE-监狱-pkg-更换中科大源" class="headerlink" title="TrueNAS CORE 监狱 pkg 更换中科大源"></a>TrueNAS CORE 监狱 pkg 更换中科大源</h2><p>国外人士可跳过。<br>创建目录及文件；粘贴以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;usr&#x2F;local&#x2F;etc&#x2F;pkg&#x2F;repos</span><br><span class="line">vi &#x2F;usr&#x2F;local&#x2F;etc&#x2F;pkg&#x2F;repos&#x2F;FreeBSD.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FreeBSD: &#123;</span><br><span class="line">  url: &quot;pkg+http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;freebsd-pkg&#x2F;$&#123;ABI&#125;&#x2F;quarterly&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>pkg update -f</code></p>
+<h2 id="TrueNAS-CORE-监狱-开启-SSH"><a href="#TrueNAS-CORE-监狱-开启-SSH" class="headerlink" title="TrueNAS CORE 监狱 开启 SSH"></a>TrueNAS CORE 监狱 开启 SSH</h2><p>修改以下文件；找到对应项目更改为：<br><code>vi /etc/ssh/sshd_config</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">port 22</span><br><span class="line">PermitRootLogin yes</span><br></pre></td></tr></table></figure>
+
+<p>设置 root 用户密码；SSH 开机自启；启用 SSH。<br><code>passwd root</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysrc sshd_enable&#x3D;yes</span><br><span class="line">service sshd start</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="TrueNAS-CORE-监狱-编译安装-qBittorrent-Enhanced-Edition"><a href="#TrueNAS-CORE-监狱-编译安装-qBittorrent-Enhanced-Edition" class="headerlink" title="TrueNAS CORE 监狱 编译安装 qBittorrent-Enhanced-Edition"></a>TrueNAS CORE 监狱 编译安装 qBittorrent-Enhanced-Edition</h2><p><code>pkg install git pkgconf qt5-core qt5-network qt5-svg qt5-linguisttools qt5-buildtools qt5-qmake boost-all libtorrent-rasterbar qt5-sql openssl</code><br><code>git clone https://github.com/c0re100/qBittorrent-Enhanced-Edition</code></p>
+<p>如果是通过 SCP 协议接收的文件，还需更改权限。<br><code>chmod -R +x qBittorrent-Enhanced-Edition</code></p>
+<p>编辑源码添加一行，否则编译报错。<br><code>vi qBittorrent-Enhanced-Editionsrc/src.pro</code><br><code>DEFINES += _GNU_SOURCE</code><br><img src="/images/blog11img1.webp" alt="img1"></p>
+<p>编译及安装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;configure --disable-gui --prefix&#x3D;&#x2F;usr</span><br><span class="line">make -j4</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p>设置开机启动，并将相关配置文件保存到你喜欢的位置。<br><code>vi /etc/rc.local</code><br><code>/usr/bin/qbittorrent-nox --webui-port=8080 -d --profile=/root/qbconfig</code></p>
+<h2 id="Linux-虚拟机允许-ssh-连接-root-用户"><a href="#Linux-虚拟机允许-ssh-连接-root-用户" class="headerlink" title="Linux 虚拟机允许 ssh 连接 root 用户"></a>Linux 虚拟机允许 ssh 连接 root 用户</h2><p><code>vi /etc/ssh/sshd_config</code><br><code>PermitRootLogin yes</code></p>
+<h2 id="Linux-虚拟机设置串口输出显示"><a href="#Linux-虚拟机设置串口输出显示" class="headerlink" title="Linux 虚拟机设置串口输出显示"></a>Linux 虚拟机设置串口输出显示</h2><p><code>vi /etc/default/grub</code><br>修改<code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet</code>中的<code>quiet</code><br><code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;console=tty0 console=ttyS0,115200n8&quot;</code><br><code>update-grub</code></p>
+<p>如果提示<code>update-grub</code>不存在，可以手动创建<br><code>vi /usr/sbin/update-grub</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line">set -e</span><br><span class="line">exec grub-mkconfig -o &#x2F;boot&#x2F;grub&#x2F;grub.cfg &quot;$@&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown root:root &#x2F;usr&#x2F;sbin&#x2F;update-grub</span><br><span class="line">chmod 755 &#x2F;usr&#x2F;sbin&#x2F;update-grub</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Linux-虚拟机改回传统网络接口名称"><a href="#Linux-虚拟机改回传统网络接口名称" class="headerlink" title="Linux 虚拟机改回传统网络接口名称"></a>Linux 虚拟机改回传统网络接口名称</h2><p><code>ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules</code></p>
+<h2 id="Linux-虚拟机安装-qemu-guest-agent"><a href="#Linux-虚拟机安装-qemu-guest-agent" class="headerlink" title="Linux 虚拟机安装 qemu guest agent"></a>Linux 虚拟机安装 qemu guest agent</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -Sy qemu-guest-agent -y</span><br><span class="line">systemctl enable qemu-guest-agent</span><br><span class="line">systemctl start qemu-guest-agent</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.nishi.network/2023/02/12/proxmox7-3-repository/">Proxmox VEで無償版リポジトリを設定する </a><br><a target="_blank" rel="noopener" href="https://www.xg2.top/archives/8530.html">ProxmoxVE 合并local和local-lvm分区</a><br><a target="_blank" rel="noopener" href="https://www.xh86.me/?p=11309">PVE开启硬件直通功能</a><br><a target="_blank" rel="noopener" href="https://evine.win/p/pve-install-realtek-8125-driver/">PVE 8 安装 ReakTEK RTL8125B 2.5G网卡驱动</a><br><a target="_blank" rel="noopener" href="https://foxi.buduanwang.vip/virtualization/2125.html/">Proxmox VE开启网卡多队列</a><br><a target="_blank" rel="noopener" href="https://pve.proxmox.com/pve-docs/chapter-qm.html#qm_display">Display</a><br><a target="_blank" rel="noopener" href="https://foxi.buduanwang.vip/virtualization/pve/1823.html/">Proxmox VE与VNC</a><br><a target="_blank" rel="noopener" href="https://foxi.buduanwang.vip/virtualization/1754.html/">Proxmox VE pve硬盘直通</a><br><a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/help/freebsd-pkg.html">FreeBSD pkg 源使用帮助</a><br><a target="_blank" rel="noopener" href="https://github.com/qbittorrent/qBittorrent/wiki/Compilation:-FreeBSD-(no-GUI)">Compilation: FreeBSD (no GUI)</a><br><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/418666/update-grub-command-not-found">chmod 755 /usr/sbin/update-grub</a><br><a target="_blank" rel="noopener" href="https://foxi.buduanwang.vip/virtualization/pve/530.html/">PVE中 qemu guest agent的安装和使用</a></p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <a class="newer-posts" href="/20231227-2030.html">
+        上一篇<br>玩转一台 DMCA Free 的服务器
+    </a>
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/20230708-1500.html">
+        下一篇<br>记一次美国实体卡携号转网至 Google Voice 及其后续使用
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?78853339"></script>
+
+
+
+</body>
+</html>

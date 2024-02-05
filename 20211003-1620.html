@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>咖啡因的浅显作用机理 - 离子键&#39;s blog</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="kikoshiken">
+<meta name="description" content="前言本文仅仅是我对咖啡因这种物质的浅显理解。我不是专业人士，实际上的作用机理远比本文所写的复杂得多，并且本文可能存...">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?33332661">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="离子键's blog" type="application/atom+xml">
+</head>
+<body>
+<div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="https://kikoshiken.github.io">
+                首页
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/关于/index.html">
+                关于
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/追番/index.html">
+                追番
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            离子键&#39;s blog
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">离子键&#39;s blog</div>
+        <div class="single-column-header-subtitle">离子键的个人博客。</div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            离子键
+        </div>
+        <div class="nav-subtitle">
+            Van!shement<br>Th!s World!!
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/关于/index.html">
+            关于
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/追番/index.html">
+            追番
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    咖啡因的浅显作用机理
+                    <div class="post-meta">
+                        <time datetime="2021-10-03T07:20:00.000Z" itemprop="datePublished">
+                            2021-10-03 15:20
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/生活/'>生活</a>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文仅仅是我对咖啡因这种物质的浅显理解。我不是专业人士，实际上的作用机理远比本文所写的复杂得多，并且本文可能存在误导性内容。<br>如果有不同意见，欢迎发邮件给我指出。</p>
+<p>对于一部分的学生和上班族来说，每天或多或少都会喝上一点咖啡。这部分人也许并不在乎咖啡的口感，喝的只不过是廉价得不能再廉价的速溶咖啡。他们在乎的是咖啡中的咖啡因能提升工作效率。<br>如果你和我一样，属于这一类人，那么请你继续看下去。根据我多年喝咖啡的经验，以及结合一部分学术研究，也许能找到一个使咖啡因的作用最大化，以及对身体损伤最小的方法。</p>
+<h2 id="咖啡因的作用机理"><a href="#咖啡因的作用机理" class="headerlink" title="咖啡因的作用机理"></a>咖啡因的作用机理</h2><p>我们高中的时候就学过，在我们的身体里有一种物质叫做三磷酸腺苷（ATP），它是我们的身体的直接能源物质。ATP在一系列的放能后会水解成二磷酸腺苷（ADP）以及单磷酸腺苷（简称腺苷、AMP）。</p>
+<p>腺苷还是一种神经递质。在我们经历了一段时间的脑力和体力活动后，体内腺苷的浓度逐渐升高。腺苷与它的受体结合后可以减缓神经细胞的活动，我们的疲劳感就由此而来。</p>
+<p>而咖啡因的结构与腺苷类似，它也能和腺苷受体进行结合，但它并不能减缓神经细胞活动。并且相反地，它还会在一段时间内占据这个腺苷受体，使它不能与腺苷相结合。</p>
+<p>其结果是，我们短时间内就不会感觉到疲劳感增加。并且神经细胞活动增高，神经细胞分泌激素肾上腺素。肾上腺素导致心跳加快，血压增高，肌肉中的血流量提高，皮肤和内脏的血流量降低，肝脏向血液释放葡萄糖。</p>
+<p>关于肾上腺素还有高中没学到的，援引自<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E8%82%BE%E4%B8%8A%E8%85%BA%E7%B4%A0">维基百科</a>的关于记忆能力方面的增强：</p>
+<blockquote><p>已经发现肾上腺素激素类，例如肾上腺素，可以产生人类长期记忆的逆行性增强。由于情绪压力导致肾上腺素释放，这是内源性肾上腺素，可以调节对某事件的记忆的巩固，确保记忆力，这对记忆是重要的。</p>
+</blockquote>
+
+<p>在咖啡因和肾上腺素这两个主要物质的双重作用下，我们将得到一段时间的清醒状态，并且部分身体能力有所增强。</p>
+<h2 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h2><p>根据维基百科所援引的<a target="_blank" rel="noopener" href="https://web.archive.org/web/20060616135732/http://dialagranny.com/media/coffeens.pdf">资料</a>显示：</p>
+<blockquote><p>在北美，90%成年人每天都会需要摄食咖啡因。</p>
+</blockquote>
+
+<p>美国和加拿大人不也是活得好好的？所以直接从结论出发，咖啡不同于香烟白酒，长期引用咖啡对于大部分人来说并不会带来一些慢性的疾病或者是隐患。</p>
+<p>而短期的副作用自然是有的，根据我的经验，大概在以下几方面。</p>
+<ul>
+<li><p><strong>咖啡完全代谢之后身体虚弱。</strong>神经系统持续兴奋，ATP、ADP的合成速度比不上水解速度，腺苷越积越多。当咖啡因被降解之后，游离的腺苷一拥而上，肾上腺素也不再分泌。这时候人体就会感觉到极度虚弱，和跑了马拉松的感觉差不多，有些人甚至会感觉到头晕肌无力。所以说咖啡因并不能消除疲劳，你原本该出现的疲劳感都会累积到咖啡代谢之后全部爆发，和透支精力差不多是一个道理。</p>
+</li>
+<li><p><strong>尿频。</strong>因为体内代谢加快的原因，尿量也会有所增加。而且咖啡因代谢后产生的可可碱也会增加尿量。</p>
+</li>
+<li><p><strong>失眠。</strong>这也是咖啡被拖出来鞭尸最多的原因。还是那句话，在不合时宜的时候喝咖啡，失眠了怪谁？</p>
+</li>
+<li><p><strong>身体负担变大。</strong>咖啡不太适合老年人或者有心脏病、高血压的人群。肾上腺素的加持下，心跳加速、血流量变大、代谢加快，可能会使上述人群病情加重，甚至导致紧急情况。</p>
+</li>
+</ul>
+<h2 id="成瘾性"><a href="#成瘾性" class="headerlink" title="成瘾性"></a>成瘾性</h2><p>我始终觉得咖啡的成瘾性是个伪命题。<strong>咖啡因和其他的毒品有一个根本的区别，那就是它不会不会改变大脑的奖励机制。</strong>咖啡因不会致幻，不会像其他毒品一样，剥夺快乐的权利，从而形成生理上的依赖。</p>
+<p>当一个人发现他不喝咖啡时候的工作效率低于喝了咖啡时的效率，那么这个人也就“离不开”咖啡了。当然这仅仅只是心理上的“依赖”而已。</p>
+<p>另外<strong>咖啡因的戒断反应也比较轻微。</strong>我在高中的时候就没离开过咖啡，每天都喝。在高考前几天的时候就停止饮用了（毕竟咖啡导致尿频，总不能在考试的时候上厕所吧），当时也就有两三天感觉比较困，精力疲乏而已，也没有产生咖啡要非喝不可的欲望。高考当天的精神状态也恢复到了完全正常的状态。</p>
+<h2 id="如何正确饮用咖啡？"><a href="#如何正确饮用咖啡？" class="headerlink" title="如何正确饮用咖啡？"></a>如何正确饮用咖啡？</h2><ul>
+<li><p><strong>找到合适自己的咖啡用量。</strong>有的人喝完咖啡之后没什么感觉，有的人喝同样量的咖啡后能亢奋一整天。<strong>每个人对咖啡的敏感度差异极大</strong>，所以说这就得在长期的经验当中摸清自己身体的G点，控制合适的量饮用咖啡。</p>
+</li>
+<li><p><strong>不要在疲劳的时候喝咖啡。</strong>从上面的作用机理我们可以得知，咖啡因需要与腺苷受体结合才能生效。而当你已经感觉到疲惫不堪时，那就证明大部分受体已经被腺苷占据了，咖啡因进入人体之后也只能短暂滞留，很快就会被代谢出体外了。<strong>食用咖啡因并不能减少所需睡眠时间，它只能临时地减弱困的感觉。</strong></p>
+</li>
+<li><p><strong>提前一定时间喝咖啡。</strong>毕竟咖啡服下到消化需要时间，进入血液后循环到全身需要时间，与腺苷受体结合也需要时间。我个人建议提前半小时到四十五分钟饮用咖啡。</p>
+</li>
+</ul>
+<h2 id="我个人的咖啡引用习惯"><a href="#我个人的咖啡引用习惯" class="headerlink" title="我个人的咖啡引用习惯"></a>我个人的咖啡引用习惯</h2><p>这就要说到另一种激素了，<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E9%A3%9F%E6%85%BE%E7%B4%A0">食欲肽</a>。</p>
+<blockquote><p>食欲肽（英语：orexin），又名下丘脑泌素（英语：hypocretin），是对两种不同的神经肽激素的统称，其主掌人体的醒觉、觉醒，使中枢神经处于清醒状态，也掌控食欲。食欲肽是两组不同的研究者通过老鼠大脑的研究同时被发现的。</p>
+</blockquote>
+
+<p>食欲肽其实是两一对互为拮抗的激素，也影响着人体的精神状态。你会发现你在晚上肚子饿的时候死活睡不着，吃饱饭后昏昏欲睡，就是食欲肽在作怪。</p>
+<p>我建议在餐后，或者更准确的来讲，在血糖快速升高时来上一杯咖啡，可以降低甚至抵消食欲肽对精神状态的影响。</p>
+<ul>
+<li><strong>早餐后。</strong>一觉睡醒，正是体内腺苷水平最低的时候。这个时候来一杯咖啡，让咖啡因先入为主占据腺苷受体，可以最大化地发挥咖啡因的效力，也能抵消餐后食欲肽造成的犯困现象。</li>
+<li><strong>午睡后。</strong>吃完午餐，顺从食欲肽造成的困意以及上午咖啡代谢后的虚弱感，直接睡一觉。睡醒后像英国人一样来一杯下午茶，应对下午的工作。</li>
+<li><strong>小憩后。</strong>理由同上，在休息之后饮用咖啡是最合适的。</li>
+</ul>
+<h2 id="咖啡中还含有的其他具有类似功能的物质"><a href="#咖啡中还含有的其他具有类似功能的物质" class="headerlink" title="咖啡中还含有的其他具有类似功能的物质"></a>咖啡中还含有的其他具有类似功能的物质</h2><p>咖啡提神主要起作用的是咖啡因，其他的一些物质虽然也能提神，但是含量比较低，就不单独拿出来具体分析了。</p>
+<blockquote><p>茶碱（英语：Theophylline）是一种化学物质，广泛存在于自然界中的红茶和绿茶中，是一种磷酸二酯酶 (PDE) 抑制剂，可广泛用于治疗呼吸系统疾病。它具有与咖啡因类似的结构和药理学特性，为一腺苷受体拮抗剂，可阻断腺苷受体的作用。</p>
+<p>茶碱的主要作用有：</p>
+<ul>
+<li>放松支气管平滑肌</li>
+<li>加强心肌收缩</li>
+<li>加快心律</li>
+<li>增加血压</li>
+<li>增加肾血流</li>
+<li>一些消炎作用</li>
+</ul>
+</blockquote>
+
+<blockquote><p>可可碱（英语：Theobromine）是一个甲基黄嘌呤类生物碱，存在于可可树和巧克力中。同属这一类的还有茶碱和咖啡因。其英文名称theobromine虽有bromine拼字，却不含溴元素，系因两者同样源于希腊文却是不同辞汇：前者希腊字根为theo（神）+broma（食物），后者的brom- 则是另一希腊字bromos（强臭味），差别在此。<br>可可碱是苦味的无色或白色晶体，可溶于水，比其同系物咖啡因疗效低。它是茶碱和副黄嘌呤的同分异构体，属于二甲基黄嘌呤类。<br>咖啡因在肝脏中有三种二甲基黄嘌呤，其中12%是可可碱。可可碱能够扩张血管，增加尿量。</p>
+</blockquote>
+
+
+<h2 id="关于食欲肽的一些有意思的事"><a href="#关于食欲肽的一些有意思的事" class="headerlink" title="关于食欲肽的一些有意思的事"></a>关于食欲肽的一些有意思的事</h2><p>高考前的一段时间我都是在家里备考。家里人给准备的早餐很传统，一大碗的白米粥加青菜，喝下去之后血糖马上就爆表了，然后困得不行。这导致我当时的行为极其奇怪：起床吃早餐，吃完继续睡觉，然后在一段频繁的排尿中醒来开始一天的学习……</p>
+<p>现在想想，主要是因为大米在长时间熬煮之后变为粥，其中主要成分——长链淀粉有的溶于水里，有的干脆直接断链成为小分子，喝下去之后吸收极快，血糖上升速度也极快，食欲肽带来的影响也在短时间内累积、爆发。</p>
+<p>所以我个人还是不推荐拿白米粥当早餐，一是营养极度不均衡（全是碳水化合物，或者说糖分）；二是吸收快，影响生活节奏；三是血糖升高迅速，<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/34653660">不利于糖尿病人的病情</a>。</p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <a class="newer-posts" href="/20220630-1255.html">
+        上一篇<br>如何在数据泄露中最小化损失？
+    </a>
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/20210427-2115.html">
+        下一篇<br>打造内大最强路由器（五）：番外：白嫖校园网、路由器不断电
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?85435757"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>折腾轻量级 FreeBSD 虚拟机 - 离子键&#39;s blog</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="kikoshiken">
+<meta name="description" content="FreeBSD 以安全、稳定、迅速而闻名，而我的需求也很简单，DNS 服务器和内网穿透。
+目标是用最小的开销稳定运...">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?50302878">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="离子键's blog" type="application/atom+xml">
+</head>
+<body>
+<div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="https://kikoshiken.github.io">
+                首页
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/关于/index.html">
+                关于
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/追番/index.html">
+                追番
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            离子键&#39;s blog
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">离子键&#39;s blog</div>
+        <div class="single-column-header-subtitle">离子键的个人博客。</div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            离子键
+        </div>
+        <div class="nav-subtitle">
+            Van!shement<br>Th!s World!!
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/关于/index.html">
+            关于
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/追番/index.html">
+            追番
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    折腾轻量级 FreeBSD 虚拟机
+                    <div class="post-meta">
+                        <time datetime="2023-12-30T13:00:00.000Z" itemprop="datePublished">
+                            2023-12-30 21:00
+                        </time>&nbsp;
+                        
+    
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <p>FreeBSD 以安全、稳定、迅速而闻名，而我的需求也很简单，DNS 服务器和内网穿透。</p>
+<p>目标是用最小的开销稳定运行 AdGuardHome 和 ZeroTier。</p>
+<h2 id="开启-SSH"><a href="#开启-SSH" class="headerlink" title="开启 SSH"></a>开启 SSH</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pkg update</span><br><span class="line">pkg install openssh -y</span><br><span class="line">vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config</span><br></pre></td></tr></table></figure>
+<p>找到<code>#PermitRootLogin no</code>，取消注释并把值改成<code>yes</code>。<br><code>service sshd restart</code></p>
+<h2 id="配置-IPv6"><a href="#配置-IPv6" class="headerlink" title="配置 IPv6"></a>配置 IPv6</h2><p><code>vi /etc/rc.conf</code><br>添加，并将默认路由改为自己的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># IPv6</span><br><span class="line">ipv6_enable&#x3D;&quot;YES&quot;</span><br><span class="line">ipv6_defaultrouter&#x3D;&quot;2405:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx&quot;</span><br></pre></td></tr></table></figure>
+<p>重启。</p>
+<h2 id="启用串行控制台-serial"><a href="#启用串行控制台-serial" class="headerlink" title="启用串行控制台/serial"></a>启用串行控制台/serial</h2><p><code>echo -h &gt; /boot.config</code></p>
+<h2 id="安装-AdGuardHome"><a href="#安装-AdGuardHome" class="headerlink" title="安装 AdGuardHome"></a>安装 AdGuardHome</h2><p>步骤有点繁琐，按照<a target="_blank" rel="noopener" href="https://forums.freebsd.org/threads/guide-how-to-install-adguardhome-on-freebsd.75496/">这篇文章</a>来操作。<br>值得注意的是，我按照步骤做完之后发现开机自启不生效，需要再手动处理一下。<br><code>vi /etc/rc.local</code><br>添加一行<br><code>service adguardhome onestart</code></p>
+<h2 id="安装-ZeroTier"><a href="#安装-ZeroTier" class="headerlink" title="安装 ZeroTier"></a>安装 ZeroTier</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pkg install zerotier -y</span><br><span class="line">service zerotier enable</span><br><span class="line">service zerotier start</span><br></pre></td></tr></table></figure>
+<p><code>zerotier-cli join (network id)</code><br>然后就报错 401 了（<br>查了一下，好像这个 BUG 存在于 FreeBSD 14，解决方法：<br><code>/var/db/zerotier-one/local.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;settings&quot;: &#123;</span><br><span class="line">    &quot;allowManagementFrom&quot;: [</span><br><span class="line">      &quot;127.0.0.1&quot;,</span><br><span class="line">      &quot;::1&quot;,</span><br><span class="line">      &quot;10.0.0.0&#x2F;8&quot;,</span><br><span class="line">      &quot;ffff:127.0.0.1&quot;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="开启内核转发"><a href="#开启内核转发" class="headerlink" title="开启内核转发"></a>开启内核转发</h2><p>方便通过 ZeroTier 访问局域网。</p>
+<p>以下内容参考和修改自<a target="_blank" rel="noopener" href="https://mdrights.github.io/os-observe/posts/2020/12/Wireguard-VPN-on-FreeBSD.html">这位大佬</a>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.inet.ip.forwarding&#x3D;1</span><br><span class="line">vi &#x2F;etc&#x2F;rc.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gateway_enable&#x3D;&quot;YES&quot;</span><br><span class="line">ipv6_gateway_enable&#x3D;&quot;YES&quot;</span><br><span class="line">pf_enable&#x3D;yes</span><br></pre></td></tr></table></figure>
+<p><code>vi /etc/pf.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ext_if&#x3D;&quot;vtnet0&quot;</span><br><span class="line">zt_if&#x3D;&quot;你的 ZeroTier 网络接口&quot;</span><br><span class="line">localnet&#x3D;$zt_if:network</span><br><span class="line"></span><br><span class="line">nat on $ext_if from $localnet to any -&gt; ($ext_if)</span><br><span class="line"></span><br><span class="line">pass from &#123;lo0,$localnet&#125; to any keep state</span><br><span class="line">pass in inet proto tcp to ($ext_if) port ssh</span><br><span class="line">pass in on $ext_if proto udp to ($ext_if) port 53   # 这里是为了放行上面的 DNS 服务器</span><br><span class="line">pass in inet proto tcp from any to any port 9993</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service pf enable</span><br><span class="line">service pf start</span><br></pre></td></tr></table></figure>
+<p>但事实上 pf 似乎还是不会开机自启，所以还是得手动处理一下（<br><code>vi /etc/rc.local</code><br>添加一行<br><code>service pf start</code></p>
+<h2 id="启用-qemu-guest-agent"><a href="#启用-qemu-guest-agent" class="headerlink" title="启用 qemu guest agent"></a>启用 qemu guest agent</h2><p>类似于 VMware Tools 的东西，方便和宿主机进行通讯。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pkg install qemu-guest-agent -y</span><br><span class="line">service qemu-guest-agent enable</span><br><span class="line">service qemu-guest-agent start</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://docs.huihoo.com/freebsd/zh_CN.GB2312/serialconsole-setup.html">20.6. 设置串行控制台</a><br><a target="_blank" rel="noopener" href="https://n-a.date/%E7%9E%8E%E6%90%9E/2019/06/01/FreeBSD-IPv6.html">FreeBSD的IPv6配置</a><br><a target="_blank" rel="noopener" href="https://docs.freebsd.org/zh-cn/books/handbook/advanced-networking/">第 32 章 高级网络</a><br><a target="_blank" rel="noopener" href="https://forums.freebsd.org/threads/guide-how-to-install-adguardhome-on-freebsd.75496/">How to install AdGuardHome on FreeBSD</a><br><a target="_blank" rel="noopener" href="https://discuss.zerotier.com/t/freebsd-14-0-zerotier-401-error/16919">Freebsd 14.0 zerotier 401 error</a><br><a target="_blank" rel="noopener" href="https://mdrights.github.io/os-observe/posts/2020/12/Wireguard-VPN-on-FreeBSD.html">在FreeBSD搭建 Wireguard VPN (Server)</a><br><a target="_blank" rel="noopener" href="https://bolg.wltechlab.top/archives/1243">PVE 虚拟机动态分配内存</a></p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <a class="newer-posts" href="/20231231-0030.html">
+        上一篇<br>在 BuyVM 的服务器上安装 Arch Linux
+    </a>
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/20231227-2030.html">
+        下一篇<br>玩转一台 DMCA Free 的服务器
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?7111835"></script>
+
+
+
+</body>
+</html>

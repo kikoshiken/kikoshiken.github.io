@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>打造内大最强路由器（二）：深澜WEB自动认证 - 离子键&#39;s blog</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="kikoshiken">
+<meta name="description" content="零、需求内大的校园网是分为无线和有线两个部分。无线部分比较省心，当成功认证之后，你的校园网账号就会绑定当前设备的M...">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?94763510">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="离子键's blog" type="application/atom+xml">
+</head>
+<body>
+<div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="https://kikoshiken.github.io">
+                首页
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/关于/index.html">
+                关于
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/追番/index.html">
+                追番
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            离子键&#39;s blog
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">离子键&#39;s blog</div>
+        <div class="single-column-header-subtitle">离子键的个人博客。</div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            离子键
+        </div>
+        <div class="nav-subtitle">
+            Van!shement<br>Th!s World!!
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/关于/index.html">
+            关于
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/追番/index.html">
+            追番
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    打造内大最强路由器（二）：深澜WEB自动认证
+                    <div class="post-meta">
+                        <time datetime="2021-03-30T07:20:00.000Z" itemprop="datePublished">
+                            2021-03-30 15:20
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/技术/'>技术</a>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h2 id="零、需求"><a href="#零、需求" class="headerlink" title="零、需求"></a>零、需求</h2><p>内大的校园网是分为无线和有线两个部分。无线部分比较省心，当成功认证之后，你的校园网账号就会绑定当前设备的MAC地址，下次登录时无需重复认证。而有线部分就比较坑了，每当已登录的设备断开后则需要重新认证。<br>所以不仅每天起床后都需要手动进行登录认证，就连重启路由器也要认证……不堪其烦，于是摸索自动认证的方法。<br>本篇及后续系列篇章的功能都在<a target="_blank" rel="noopener" href="https://ikirby.me/">ikirby</a>的帮助下实现，在此感谢他的帮助。</p>
+<h2 id="一、分析"><a href="#一、分析" class="headerlink" title="一、分析"></a>一、分析</h2><p>认证只需要在 <a target="_blank" rel="noopener" href="http://172.31.99.50:802/srun_portal_pc.php?ac_id=2&amp;">http://172.31.99.50:802/srun_portal_pc.php?ac_id=2&amp;</a> 里输入学号密码就可以了，所以我们需要抓包查看这个过程到底发生了什么。</p>
+<h2 id="二、抓包"><a href="#二、抓包" class="headerlink" title="二、抓包"></a>二、抓包</h2><p>需要用到Chrome或者Edge。在认证页按下F12，选中<code>Network</code>。然后输入你的学号密码并登录。可以观察到此时在<code>Name</code>的下方多出了一项，我们点开它。<br><img src="/images/blog3img1.png" alt="img1">（个人信息进行了打码处理）<br>这是一个POST请求，划到最下面，能看到几项关键的参数：<code>username</code>和<code>password</code>，也就是你的学号和加密过的密码，所以基本可以判定这个POST请求就是认证的关键了。其他的一些不明所以的参数，更换账号进行对照实验时也不会改变，所以我们可以不再研究，原封不动保留即可。<br><img src="/images/blog3img2.png" alt="img2"><br>至于这个密码是怎么加密的，这些参数代表什么，其实并不需要关心，我们只需要在路由器上自动模拟发送这个POST即可。我们先尝试一下。</p>
+<p>右键点击<code>auth_action.php</code>，选择<code>Copy，Copy cURL(bath)</code>，使得它能够在Linux上运行。新建一个空白文件，粘贴进去，继续分析。<br><img src="/images/blog3img3.png" alt="img3"></p>
+<h2 id="三、模拟"><a href="#三、模拟" class="headerlink" title="三、模拟"></a>三、模拟</h2><p><img src="/images/blog3img4.png" alt="img4"><br>可以看到目标URL是 <a target="_blank" rel="noopener" href="http://172.31.99.50:802/include/auth_action.php">http://172.31.99.50:802/include/auth_action.php</a> ，关键参数为<code>--data-raw</code>后面<strong>高亮</strong>的这一句，其他的<code>-H</code>都是登录时候的环境参数，是无关变量，猜测服务器不会对这些参数进行验证，可以尝试全部删了。<br>于是我们就可以用一条命令模拟这一个登录过程（记得把<code>关键参数</code>引号内的内容改为你自己的关键参数）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -d “关键参数” http:&#x2F;&#x2F;172.31.99.50:802&#x2F;include&#x2F;auth_action.php</span><br></pre></td></tr></table></figure>
+<p>在认证页把账号退出，确认下现在是未认证、上不了网的状态。然后打开路由器后台，<code>系统</code>-&gt;<code>TTYD 终端</code>，把命令复制进去。如图<br>（在Linux终端中，粘贴快捷键为<code>Ctrl</code>+<code>Shift</code>+<code>v</code>）<br><img src="/images/blog3img5.png" alt="img5"><br>回车执行。<br><img src="/images/blog3img6.png" alt="img6"><br>返回了<code>login_ok</code>，此时路由器已经连上网了，模拟成功！</p>
+<h2 id="四、自启"><a href="#四、自启" class="headerlink" title="四、自启"></a>四、自启</h2><p>我们的最终目的是实现在路由器开机时就自动进行登录认证，所以我们还需要写一个自启脚本。<br>找一个靠谱的文本编辑器，推荐Notepad++、VS Code，把以下内容粘贴进去，并把<code>关键参数</code>改为自己账号的参数。<br><strong>（请不要使用微软自带的记事本！！！）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh &#x2F;etc&#x2F;rc.common</span><br><span class="line">START&#x3D;99</span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">ping -c 1 202.207.0.6</span><br><span class="line">while [ $? !&#x3D; 0 ]</span><br><span class="line">do</span><br><span class="line">	sleep 5</span><br><span class="line">	ping -c 1 202.207.0.6</span><br><span class="line">done</span><br><span class="line">curl -d &quot;关键参数&quot; http:&#x2F;&#x2F;172.31.99.50:802&#x2F;include&#x2F;auth_action.php</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原理也挺简单的，认证前需要先获取内网IP，所以可以通过不停地ping学校DNS来判断是否获取到了内网IP。当成功ping通的话就可以开始认证操作了。</p>
+<p>改完关键参数后，全选、复制留作备用。</p>
+<p>切换到英文输入，在<code>TTYD 终端</code>里，执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;init.d     # 进入&#x2F;etc&#x2F;init.d</span><br><span class="line">vi autologin       # 用vi编辑器创建并编辑文件autologin</span><br></pre></td></tr></table></figure>
+<p>要注意的是，此时是<strong>命令模式</strong>，需要按<code>i</code>键进入<strong>插入模式</strong>才可以输入。<br>然后把刚刚复制的内容粘贴进去。（再次提醒下，Linux终端里的粘贴快捷键为<code>Ctrl</code>+<code>Shift</code>+<code>v</code>）<br>按<code>Esc</code>返回命令模式，输入<code>:wq</code>并回车，保存退出。<br><img src="/images/blog3img7.png" alt="img7"><br>接下来给刚刚编辑的文件加上执行权限，终端执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x autologin</span><br></pre></td></tr></table></figure>
+<p>然后设置开机启动项，执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;autologin enable</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="五、测试"><a href="#五、测试" class="headerlink" title="五、测试"></a>五、测试</h2><p>进入<code>系统</code>-&gt;<code>启动项</code>页面，查找有没有刚刚我们创建的<code>autologin</code>，看下它是不是<code>已启用</code>状态。<br><img src="/images/blog3img8.png" alt="img8"><br>接着进入<code>系统</code>-&gt;<code>重启</code>页面重启路由器，验证脚本效果。</p>
+<p>至此，一个能够满足大部分需求的路由器就配置好了，后面的博文将会进行一些实验性操作，和一些细节性优化。</p>
+<h2 id="部分参考资料"><a href="#部分参考资料" class="headerlink" title="部分参考资料"></a>部分参考资料</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/milton/p/6345621.html">OpenWrt的开机启动服务(init scripts)</a><br><a target="_blank" rel="noopener" href="https://menyifan.com/2016/08/19/mini4/">小米路由器mini——Padavan折腾笔记</a></p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <a class="newer-posts" href="/20210331-1130.html">
+        上一篇<br>打造内大最强路由器（三）：多线多拨实现带宽叠加
+    </a>
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/20210329-1010.html">
+        下一篇<br>打造内大最强路由器（一）：新路由3、Breed、固件与基本设置
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?57582441"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>打造内大最强路由器（三）：多线多拨实现带宽叠加 - 离子键&#39;s blog</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="kikoshiken">
+<meta name="description" content="什么是多拨多拨最开始出现在家庭网络的拨号上网中。比如说，家里已经有了一条电信宽带，而移动充话费时又送了一条宽带。为...">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?65481767">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="离子键's blog" type="application/atom+xml">
+</head>
+<body>
+<div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="https://kikoshiken.github.io">
+                首页
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/关于/index.html">
+                关于
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/追番/index.html">
+                追番
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            离子键&#39;s blog
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">离子键&#39;s blog</div>
+        <div class="single-column-header-subtitle">离子键的个人博客。</div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            离子键
+        </div>
+        <div class="nav-subtitle">
+            Van!shement<br>Th!s World!!
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/关于/index.html">
+            关于
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/追番/index.html">
+            追番
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    打造内大最强路由器（三）：多线多拨实现带宽叠加
+                    <div class="post-meta">
+                        <time datetime="2021-03-31T02:30:00.000Z" itemprop="datePublished">
+                            2021-03-31 10:30
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/技术/'>技术</a>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h2 id="什么是多拨"><a href="#什么是多拨" class="headerlink" title="什么是多拨"></a>什么是多拨</h2><p>多拨最开始出现在家庭网络的拨号上网中。比如说，家里已经有了一条电信宽带，而移动充话费时又送了一条宽带。为了充分地利用起这两条宽带，我们把它们接在同一个路由器上，同时并发拨号，并对流量进行负载均衡，实现这两条宽带的带宽叠加，这个操作就叫做双线双拨。而某些地区的运营商存在Bug，能够对一条宽带进行多次拨号，并且实现带宽叠加，这个就叫做单线多拨。</p>
+<h2 id="单线多拨的探索与结果"><a href="#单线多拨的探索与结果" class="headerlink" title="单线多拨的探索与结果"></a>单线多拨的探索与结果</h2><p>根据N年前内大网络中心发布的一篇<a target="_blank" rel="noopener" href="https://nic.imu.edu.cn/info/1035/1123.htm">公告</a>中有提到：</p>
+<blockquote><p>网络中心不推荐使用路由器上网，我们推荐使用 <a target="_blank" rel="noopener" href="http://item.jd.com/436666.html">http://item.jd.com/436666.html</a> 这种带有ap功能的wifi设备。因为路由器只能获取一个IP地址，多人使用的时候会造成本地的网络拥堵，网速变慢。 ap模式会使每一台连接wifi的设备获取一个独立的IP，各设备之间网速相互不影响。 </p>
+</blockquote>
+<p>显而易见，内大校园网里存在限速，而且是根据IP地址限速的。每个校园网账号登陆后只能获取1个IP地址，所以也可以理解为对账号限速。<br>而在目前的测速来看，校园网对于每个账号的限速应该在100Mbps，所以我们只要尝试在同一个路由器上登录多个账号，也许就能实现带宽叠加了。</p>
+<p>然而最终根据我的大量测试来看，很遗憾，内大在装修时安装的埋墙线均为百兆，物理限制不可突破，单线多拨不会有网速提升。所以我们把目光还是转向多线多拨吧。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>需要<del>向室友献出py</del>拿到多个校园网账号，并按照本系列<a target="_blank" rel="noopener" href="https://lizijiandesu.github.io/20210330-1519">上一篇博文</a>里的教程，拿到这几个账号的关键参数，写成curl命令保存备用。</li>
+<li>多根网线以及一个能插网线的电脑。</li>
+<li>Openwrt固件的路由器，并安装好多拨插件<code>luci-app-syncdial</code>及负载均衡<code>luci-app-mwan3</code>。</li>
+</ul>
+<h2 id="改LAN口为WAN口"><a href="#改LAN口为WAN口" class="headerlink" title="改LAN口为WAN口"></a>改LAN口为WAN口</h2><p>新路由3只有一个<code>WAN</code>口，<code>LAN</code>口却有五个，要接入多条宽带的话必须要把部分<code>LAN</code>口改成<code>WAN</code>口。<br>在<code>网络</code>-&gt;<code>交换机</code>页面中进行设置。<br>简单来讲，所有的<code>LAN</code>口都在同一个<code>VLAN ID</code>里；每个<code>WAN</code>口则独立占用一个<code>VLAN ID</code>。</p>
+<p>如果想把某一个接口从<code>LAN</code>口改成<code>WAN</code>口，则只需要单独创建一行<code>VLAN ID</code>，把这个口设置成<code>untagget</code>，并把这个口在其他<code>VLAN ID</code>中的相应位置改成<code>关</code>就行了。<code>CPU(eth0)</code>则一律设置成<code>tagget</code>。</p>
+<p>如图，这里我把<code>LAN1</code>改成了<code>WAN</code>口。<br><img src="/images/blog4img1.png" alt="img1"><br>其中需要记住每个<code>WAN</code>口的<code>VLAN ID</code>，比如说我这里原来的<code>WAN</code>口的<code>VLAN ID</code>是2，新改出来的<code>WAN</code>口的<code>VLAN ID</code>是3。<strong>在命令行中则分别用<code>eth0.2</code>、<code>eth0.3</code>表示它们。</strong></p>
+<h2 id="创建多个外网接口"><a href="#创建多个外网接口" class="headerlink" title="创建多个外网接口"></a>创建多个外网接口</h2><p>进入<code>网络</code>-&gt;<code>接口</code>页，把<code>WAN</code>和<code>WAN6</code>删除，然后点击<code>添加新接口</code>。<br>这里我建议把原本的<code>WAN</code>口命名为<code>wan0</code>，新改的<code>WAN</code>口命名为<code>wan1</code>、<code>wan2</code>……<br><strong>记住你此时输入的接口名是大写还是小写，因为创建成功后一律显示为大写，而实际上是有大小写之分的。</strong><br>接口协议选择<code>DHCP 客户端</code>,接口选择<code>eth0.2</code>、<code>eth0.3</code>……这是原来的<code>WAN</code>口以及新改出来的<code>WAN</code>口。<br><img src="/images/blog4img2.png" alt="img2"><br>点<code>提交</code>，然后再到<code>防火墙设置</code>里，把刚刚创建的接口都绑定到<code>wan</code>里，<code>保存&amp;应用</code>之后，就可以给这些接口插入宽带了。<br><img src="/images/blog4img3.png" alt="img3"><br>如果操作没有问题的话，应该能看到这些<code>WAN</code>口已经获取到IP地址了。<br>我弄的是双线双拨，所以就把<code>LAN1</code>改成了<code>WAN</code>口，并创建了两个接口。<br><img src="/images/blog4img4.png" alt="img4"><br>请注意此时各个<code>WAN</code>口的<code>MAC 地址</code>必须不一样。如有重复则修改接口的<code>高级设置</code>，自定义一个<code>MAC 地址</code>。</p>
+<h2 id="设置负载均衡"><a href="#设置负载均衡" class="headerlink" title="设置负载均衡"></a>设置负载均衡</h2><p>如果不设置的话，流量将只走一条宽带。<br>在<code>网络</code>-&gt;<code>负载均衡</code>里，建议把<code>接口</code>、<code>成员</code>、<code>策略</code>、<code>规则</code>里的自带内容删除后再进行下面的操作。</p>
+<ul>
+<li>接口<br>添加所有外网接口，其中接口名和刚刚创建的<strong>接口名一致，大小写相等</strong>。<br>里面的配置可以仿照我的进行设置。<br><img src="/images/blog4img5.png" alt="img5"><br><img src="/images/blog4img6.png" alt="img6"><br><img src="/images/blog4img7.png" alt="img7"></li>
+<li>成员<br>有多少个外网接口则创建多少个成员，其中成员名不能和接口名一样，必须有区分，可以像我这样设置。<br><img src="/images/blog4img8.png" alt="img8"><br>其中<strong>这里的</strong><code>跃点数</code>表示优先级，如果<code>跃点数</code>不一样则<strong>只启用跃点数小的接口</strong>，<code>跃点数</code>一样则同时启用；<code>比重</code>则决定已启用成员的流量配比。在这里我们全部设为1即可。</li>
+<li>策略<br>创建一条策略，名称随意。使用的成员为刚刚创建的成员。<br><img src="/images/blog4img9.png" alt="img9"></li>
+<li>规则<br>创建一条规则，名称随意。分配的策略选择<code>banlanced</code>，其他保持默认。<br><img src="/images/blog4img10.png" alt="img10"><br>设置完记得保存&amp;应用。</li>
+</ul>
+<h2 id="多拨状态下的自动认证"><a href="#多拨状态下的自动认证" class="headerlink" title="多拨状态下的自动认证"></a>多拨状态下的自动认证</h2><p>只需要对上一篇博文的代码进行略微修改就可以了。<br>另外，如果你在上一篇博文里已经创建了<code>autologin</code>，则需要先删除后再进行操作，因为那个脚本是面向单拨的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;init.d</span><br><span class="line">rm autologin</span><br></pre></td></tr></table></figure>
+<p>复制以下代码到专业的文本编辑器里，把15、16行的接口和账号参数改成自己的。如果需要三拨或者更多拨，则按照格式修改最后几行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh &#x2F;etc&#x2F;rc.common</span><br><span class="line">START&#x3D;99</span><br><span class="line"></span><br><span class="line">login()&#123;</span><br><span class="line">	ping -I $1 -c 1 202.207.0.6</span><br><span class="line">	while [ $? !&#x3D; 0 ]</span><br><span class="line">	do</span><br><span class="line">		sleep 5</span><br><span class="line">		ping -I $1 -c 1 202.207.0.6</span><br><span class="line">	done</span><br><span class="line">	curl --interface $1 -d &quot;$2&quot; http:&#x2F;&#x2F;172.31.99.50:802&#x2F;include&#x2F;auth_action.php</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">VLAN_ID_1&#x3D;&quot;eth0.2&quot;   user_1&#x3D;&quot;账号1的关键参数&quot;</span><br><span class="line">VLAN_ID_2&#x3D;&quot;eth0.3&quot;   user_2&#x3D;&quot;账号2的关键参数&quot;</span><br><span class="line"></span><br><span class="line">login $VLAN_ID_1 $user_1</span><br><span class="line">login $VLAN_ID_2 $user_2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi autologin</span><br></pre></td></tr></table></figure>
+<p>修改完了之后复制到<code>autologin</code>，方法就不多赘述了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x autologin</span><br><span class="line">.&#x2F;autologin enable</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="修复多拨产生的问题"><a href="#修复多拨产生的问题" class="headerlink" title="修复多拨产生的问题"></a>修复多拨产生的问题</h2><p>多拨之后虽然能够实现暴力的网速叠加，但是也会出现一些问题，比如说导致某些网页加载不全、微信图片发送不出去、腾讯视频无法观看等，几乎无法日用。<br>困扰了很久之后终于找到了解决方案，只需要在<code>网络</code>-&gt;<code>防火墙</code>-&gt;<code>自定义规则</code>里添加一条规则就行了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -I POSTROUTING -j MASQUERADE</span><br></pre></td></tr></table></figure>
+<p><img src="/images/blog4img11.png" alt="img11"><br>添加完记得重启防火墙。<br>虽然问题解决了，但它是怎么产生的，这条规则又实现了什么，我是完全不懂（摊手）。所以如果有朋友知道的话，可以在评论区告诉我。</p>
+<h2 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h2><p>关于多拨的所有设置已经做完了，此时重启路由器，并到<code>状态</code>-&gt;<code>负载均衡</code>页面确认所有外网接口是否都在线。<br>前往 <a target="_blank" rel="noopener" href="https://www.speedtest.net/">https://www.speedtest.net/</a> 测试一下网速。<br><img src="/images/blog4img12.png" alt="img12"><br><img src="/images/blog4img13.png" alt="img13"></p>
+<h2 id="部分参考资料"><a href="#部分参考资料" class="headerlink" title="部分参考资料"></a>部分参考资料</h2><p><a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-2659746-1-1.html">openwrt负载均衡最详细设置—小白基础篇</a><br><a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-2670532-1-1.html">openwrt负载均衡最详细设置—小白进阶篇</a><br><a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-506510-1-1.html">[N1盒子] N1刷入LEAN OPENWRT做旁路网关，导致访问国内网站卡顿</a></p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <a class="newer-posts" href="/20210401-1615.html">
+        上一篇<br>打造内大最强路由器（四）：细节优化：IPv6穿透、DNS设置、断网重连
+    </a>
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/20210330-1620.html">
+        下一篇<br>打造内大最强路由器（二）：深澜WEB自动认证
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?17433562"></script>
+
+
+
+</body>
+</html>

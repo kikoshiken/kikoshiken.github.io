@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>打造内大最强路由器（一）：新路由3、Breed、固件与基本设置 - 离子键&#39;s blog</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="kikoshiken">
+<meta name="description" content="前言本系列博文着重于操作，对于原理层面的知识则不太深究，毕竟我不是专业人士，水平有限。
+选择路由器推荐尽量选择在恩...">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?96462292">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript>
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="离子键's blog" type="application/atom+xml">
+</head>
+<body>
+<div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="https://kikoshiken.github.io">
+                首页
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/关于/index.html">
+                关于
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/追番/index.html">
+                追番
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            离子键&#39;s blog
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">离子键&#39;s blog</div>
+        <div class="single-column-header-subtitle">离子键的个人博客。</div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            离子键
+        </div>
+        <div class="nav-subtitle">
+            Van!shement<br>Th!s World!!
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/关于/index.html">
+            关于
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/追番/index.html">
+            追番
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    打造内大最强路由器（一）：新路由3、Breed、固件与基本设置
+                    <div class="post-meta">
+                        <time datetime="2021-03-29T01:10:00.000Z" itemprop="datePublished">
+                            2021-03-29 09:10
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/技术/'>技术</a>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本系列博文着重于操作，对于原理层面的知识则不太深究，毕竟我不是专业人士，水平有限。</p>
+<h2 id="选择路由器"><a href="#选择路由器" class="headerlink" title="选择路由器"></a>选择路由器</h2><p>推荐尽量选择在恩山论坛里人气比较高的路由器，这类路由器一般有很多固件可供选择，而且驱动也相对完整，不太容易出现莫名其妙的疑难杂症，性价比也相对很高。<br>在这里我选择的是新路由3。它有全千兆的网口，512M的DDR3内存，32M的闪存，MT7621A双核CPU以及1个USB3.0接口，作为寝室公用路由是完全足够的。<br>本系列博客也都是以新路由3为标准而写成的。</p>
+<h2 id="刷入Breed（不死）"><a href="#刷入Breed（不死）" class="headerlink" title="刷入Breed（不死）"></a>刷入Breed（不死）</h2><p>Breed的作用相当于手机上的Bootload、Recovery，主要是给路由器更换固件时提供一个入口，有时还起到救砖的作用，所以也有人称它为“不死”。<br>现在在售的新路由3已经基本没有全新的了，大多可以让商家帮忙刷好Breed后再寄过来。我的新路由3就是如此，所以我并没有亲身尝试过这一步操作。<br>如果你是个强迫症患者，买了全新版本的新路由3的话，可以按照<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-342918-1-1.html">恩山论坛的教程</a>刷入Breed。</p>
+<h2 id="刷入第三方固件"><a href="#刷入第三方固件" class="headerlink" title="刷入第三方固件"></a>刷入第三方固件</h2><p><del>不刷第三方固件用什么新路由3。</del><br>新路由3有丰富的第三方固件资源，常见的有稳定易上手的Pandavan（老毛子），功能强大的Openwrt/Pandorabox，精于流控和多拨的高恪等等。<br>本系列博客教程都是基于Openwrt的。</p>
+<p>因为我不是很满意网友们编译的Openwrt（软件包冲突或是缺少内核模块），于是我就用lean的源码自己编译了一个固件，使用闭源驱动，仅保留我用得上的功能，有兴趣可以来<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1TLQrYw2n3JiIDF3mNebzmA">尝试一下</a>，提取码：ilys。</p>
+<p>由于新路由3的<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/28422159">USB3.0与2.4Ghz信号有冲突</a>，而且我目前没有外接硬盘的打算，所以固件中暂未加入外接USB的支持。</p>
+<p>进入正题，在断电状态下<strong>摁住</strong>路由器后面的<strong>复位键</strong>不放，<strong>插上电源</strong>等待。当路由器的全部指示灯出现了一阵鬼畜的闪烁之后，即可松开复位键，此时已经进入了Breed模式。<br>这个时候的路由器不会发射无线信号，所以必须通过网线连接电脑进入Breed控制台。<br>电脑端关闭所有的代理服务，浏览器访问192.168.1.1即可见到如下页面：<br><img src="/images/blog2img1.png" alt="img1"><br>点击固件<code>更新</code>-&gt;<code>常规固件</code>，勾选“固件”并选择你所下载的固件，点击<code>上传</code>、<code>更新</code>。<br><img src="/images/blog2img2.png" alt="img2"><br>静等进度条走完，固件更新完毕并重启。<br>此时请<strong>不要拔掉网线</strong>，因为你的无线功能可能还没有开启。在插着网线的情况下继续进行下列设置。</p>
+<h2 id="基本设置"><a href="#基本设置" class="headerlink" title="基本设置"></a>基本设置</h2><p>浏览器访问192.168.1.1（对，还是这个地址）进入Openwrt的后台，默认用户名和密码分别为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root       #用户名</span><br><span class="line">password   #密码</span><br></pre></td></tr></table></figure>
+<h3 id="开启无线功能："><a href="#开启无线功能：" class="headerlink" title="开启无线功能："></a>开启无线功能：</h3><p>第一步先到<code>网络</code>-&gt;<code>无线</code>页面查看是否启用了WIFI，如果没有，请手动开启。在基本设置里可以设置SSID和密码等相关参数，自行摸索。<br><img src="/images/blog2img3.png" alt="img3"><br>在开启了无线功能之后，我们就可以拔掉网线，用Wi-Fi连接路由器继续进行了。</p>
+<h3 id="路由器时间同步："><a href="#路由器时间同步：" class="headerlink" title="路由器时间同步："></a>路由器时间同步：</h3><p>这个算是比较重要的一步，因为每天晚上宿舍断电，可能就会导致路由器的时间出现偏移。当时间偏移到一定程度之后，连校园网认证服务器都会拒绝你的连接请求。<br>在<code>系统</code>-&gt;<code>系统</code>里，点击“同步浏览器时间”进行同步。<br>顺便把下面的<code>启用 NTP 客户端</code>勾上，<code>保存&amp;应用</code>。不过这也是一个然并卵的功能，因为当你时间不正确的时候，你就连不上校园网；当你连不上校园网的时候，你就同步不了时间（摊手）。<br>所以当你哪天早上起床发现路由器没网，连认证页面都打不开的时候，先来这里检查一下时间是否正确。<br><img src="/images/blog2img4.png" alt="img4"><br><del>+1s</del></p>
+<h3 id="连接网络："><a href="#连接网络：" class="headerlink" title="连接网络："></a>连接网络：</h3><p>接下来到<code>网络</code>-&gt;<code>接口</code>里查看WAN口是否是<code>DHCP 客户端</code>模式，并且获取到了以10.xx开头的内网IPv4。如果没有的话，点击WAN接口的修改按钮：<br><img src="/images/blog2img5.png" alt="img5"><br>将协议切换到<code>DHCP 客户端</code>，<code>保存&amp;应用</code>。回到<code>网络</code>-&gt;<code>接口</code>页面，等待网络中心给你分配内网IP。<br>当成功获取到IPv4地址的时候，你就可以进入<a target="_blank" rel="noopener" href="http://172.31.99.50:802/srun_portal_pc.php?ac_id=2&">校园网登录页面</a>进行认证上网了。<br>接口里面的设置只需要做一次，重启也不会丢失。而校园网则需要每次重启之后都进行手动认证，这个操作其实挺烦人的，常常会因为没有认证而导致手机、电脑不自动连接Wi-Fi。至于如何实现在路由器开机时自动进行校园网认证，这个我们后面再谈。</p>
+<h3 id="端口映射："><a href="#端口映射：" class="headerlink" title="端口映射："></a>端口映射：</h3><p>由于公网IPv4地址数量已经逐渐无法满足需求，我国在很多年前就基本不主动分发公网地址了，改为分发内网IP，多个内网用户共用1个公网IP。<br>而在校园网里，情况可能就更复杂，除了学校内网之外，可能还隔着一层运营商内网。这种情况下，P2P的连接性，以及连接的稳定性就堪忧了。<br>而端口映射就较好的解决了这个问题，它就相当于一个虫洞，直接贯穿客户端至公网IP的某个端口，变相实现了拥有公网IP的效果（拥有部分端口已经可以解决大部分需求了）。</p>
+<p>不扯了，开启方法：<br><code>服务</code>-&gt;<code>UPnP</code>，勾选下方的<code>启动 UPnP 与 NAT-PMP 服务</code>，<code>保存&amp;应用</code>。<br><img src="/images/blog2img6.png" alt="img6"><br>如果有支持端口映射的程序在运行的话，相关信息将会显示在这个页面。<br><img src="/images/blog2img7.png" alt="img7"></p>
+<h2 id="未测试的操作：硬件改装、修改EEPROM"><a href="#未测试的操作：硬件改装、修改EEPROM" class="headerlink" title="未测试的操作：硬件改装、修改EEPROM"></a>未测试的操作：硬件改装、修改EEPROM</h2><p><strong>这些是相对危险的操作，我并未实际测试过！！！</strong></p>
+<p>新路由3的内部结构相对来说不是那么完美，某些地方如果加上电容、屏蔽罩会更好，而且在极端发热（例如挖矿）的环境下会导致里面的硅油漏出来。可以通过改装解决这些问题，参考恩山论坛<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-506529-1-1.html">帖子</a>。要是有强迫症但是没有动手能力的话，也可以通过某宝解决。</p>
+<p>EEPROM分区里主要存储了发射功率相关的参数，刷入好的EEPROM能使你的无线信号和无线传输速率有较为明显的提升。有强迫症需求的话可以参考<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-426288-1-1.html">这里</a>和<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/forum.php?mod=viewthread&tid=428424&ctid=246">这里</a>，不要忘记在刷入前备份自己的EEPROM，以及还要<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/forum.php?mod=viewthread&tid=430518&ctid=246">注意修改MAC地址</a>。</p>
+<p>而实际上，我们的寝室只有十多平米，校园网带宽只有百兆，即使不做这些危险操作，满足需求也是绰绰有余的。</p>
+<h2 id="预告"><a href="#预告" class="headerlink" title="预告"></a>预告</h2><p>本篇仅仅是介绍了路由器的一些基本设置，实现了最基本的上网需求。而在后续的博文中，将会陆续实现校园网自动认证、单线多拨实现带宽叠加（伪）、IPv6的实现等，敬请期待。</p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <a class="newer-posts" href="/20210330-1620.html">
+        上一篇<br>打造内大最强路由器（二）：深澜WEB自动认证
+    </a>
+    
+    <span class="page-number"></span>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2024 <a href="https://kikoshiken.github.io">离子键&#39;s blog</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?26490332"></script>
+
+
+
+</body>
+</html>
