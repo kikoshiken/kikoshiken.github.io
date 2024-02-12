@@ -4,12 +4,11 @@
 <html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>玩转一台 DMCA Free 的服务器 - 离子键&#39;s blog</title>
+    <title>AIO：2. Arch Linux - 离子键&#39;s blog</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="kikoshiken">
-<meta name="description" content="既然是 DMCA Free，那肯定要拿去下种子啦！
-但是服务器孱弱的性能与硬盘肯定是不能直接跑 BT 的，要么是服...">
+<meta name="description" content="由于 FreeBSD 对于我这边的 IPv6 支持不是很完全，所以我放弃了在 TrueNAS 监狱中跑 qbee ...">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -19,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?95634649">
+<link rel="stylesheet" href="/css/journal.css?39501553">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -70,12 +69,12 @@
 
             
             
-            <a class="a-block drawer-menu-item false" href="/追番/index.html">
-                追番
-            </a>
-            
             <a class="a-block drawer-menu-item false" href="/关于/index.html">
                 关于
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/追番/index.html">
+                追番
             </a>
             
 
@@ -121,12 +120,12 @@
 
         
         
-        <a class="a-block nav-link-item false" href="/追番/index.html">
-            追番
-        </a>
-        
         <a class="a-block nav-link-item false" href="/关于/index.html">
             关于
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/追番/index.html">
+            追番
         </a>
         
 
@@ -162,7 +161,7 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    玩转一台 DMCA Free 的服务器
+                    AIO：2. Arch Linux
                     <div class="post-meta">
                         <time datetime="2023-12-27T11:30:00.000Z" itemprop="datePublished">
                             2023-12-27 19:30
@@ -176,69 +175,49 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <p>既然是 DMCA Free，那肯定要拿去下种子啦！</p>
-<p>但是服务器孱弱的性能与硬盘肯定是不能直接跑 BT 的，要么是服务器上跑客户端然后挂载家里的NAS，要么是家里 NAS 跑客户端，用 VPN 连接服务器。</p>
-<p>个人选择了后者。但还有个问题，VPN 相当于套了一层 NAT，主动连接别人没问题，但是别人主动连接的话就到不了 NAS，这个问题得解决。</p>
-<p>对付 NAT 那肯定是端口转发，所以 VPN 选择 WireGuard，建立一个内网，这样有内网 IP 之后就好转发了。</p>
-<h2 id="服务端配置-WireGuard"><a href="#服务端配置-WireGuard" class="headerlink" title="服务端配置 WireGuard"></a>服务端配置 WireGuard</h2><p>WireGuard 其实并不区分服务端和客户端，这里只是为了区分两台机器。</p>
-<p>强烈建议阅读<a target="_blank" rel="noopener" href="https://www.procustodibus.com/blog/2020/11/wireguard-point-to-site-config/#configure-routing-on-host-b">这篇文章</a>。</p>
-<p>服务器是 Debian，默认以 root 用户运行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update &amp;&amp; apt install wireguard -y</span><br><span class="line">(umask 0077; wg genkey &gt; private)   # 创建服务器端私钥</span><br></pre></td></tr></table></figure>
-<p><code>vi /etc/wireguard/wg0.conf</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Interface]</span><br><span class="line">Address &#x3D; 10.0.1.1&#x2F;24</span><br><span class="line">Address &#x3D; fd00::1&#x2F;128</span><br><span class="line">SaveConfig &#x3D; true</span><br><span class="line">ListenPort &#x3D; 1123</span><br><span class="line">PrivateKey &#x3D; （刚刚创建的服务端私钥）</span><br><span class="line"></span><br><span class="line"># 启用内核转发</span><br><span class="line">PreUp &#x3D; sysctl -w net.ipv4.ip_forward&#x3D;1</span><br><span class="line">PreUp &#x3D; sysctl -w net.ipv6.conf.all.forwarding&#x3D;1</span><br><span class="line"></span><br><span class="line"># 防火墙允许转发</span><br><span class="line">PostUp &#x3D; iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line">PostDown &#x3D; iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE</span><br></pre></td></tr></table></figure>
-<p>1123 是本机的 WireGuard 端口，选个喜欢的就好了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wg-quick up wg0   # 启动接口</span><br><span class="line">wg   # 查看状态与公钥</span><br><span class="line">systemctl enable wg-quick@wg0   # 设置开机启动</span><br></pre></td></tr></table></figure>
+                    <p>由于 FreeBSD 对于我这边的 IPv6 支持不是很完全，所以我放弃了在 TrueNAS 监狱中跑 qbee 的方案。</p>
+<p>安装阶段可选<code>zen</code>内核，据说有蜜汁优化？（</p>
+<h2 id="在-BuyVM-的服务器上安装-Arch-Linux"><a href="#在-BuyVM-的服务器上安装-Arch-Linux" class="headerlink" title="在 BuyVM 的服务器上安装 Arch Linux"></a>在 BuyVM 的服务器上安装 Arch Linux</h2><p>预先安装好<code>vi</code>和<code>net-tools</code>，后续进入系统后是没网络的，需要配置静态 IP。</p>
+<ul>
+<li>把网络接口名称改回传统命名<br>好看一点。<br><code>ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules</code></li>
+<li>配置静态 IP<br><code>vi /etc/systemd/network/eth0.network</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[Match]</span><br><span class="line">Name&#x3D;eth0</span><br><span class="line"></span><br><span class="line">[Network]</span><br><span class="line">Address&#x3D;（你的 IPv4 地址）&#x2F;24</span><br><span class="line">Gateway&#x3D;（你的IPv4 地址网关）</span><br><span class="line">Address&#x3D;（你的 IPv6 地址）</span><br><span class="line">Gateway&#x3D;（你的IPv6 地址网关）</span><br><span class="line">DNS&#x3D;8.8.8.8</span><br></pre></td></tr></table></figure>
+地址和网关都能在控制面板里查看，其中 IPv6 地址还需在面板里手动添加，<a target="_blank" rel="noopener" href="https://dausruddin.com/how-to-enable-ipv6-on-buyvm-vps-with-ubuntu-20-04/">教程</a>。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable systemd-networkd --now</span><br><span class="line">systemctl enable systemd-resolved --now</span><br></pre></td></tr></table></figure>
 
 
-<h2 id="客户端配置-WireGuard"><a href="#客户端配置-WireGuard" class="headerlink" title="客户端配置 WireGuard"></a>客户端配置 WireGuard</h2><p>客户端是一台 ArcoLinux 的虚拟机。</p>
-<p>为什么不用 Debian？因为垃圾螃蟹 8125B 在 Debian 系上跑不起来，还得是 Arch 系的内核版本够高（</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -Sy wireguard-tools -y</span><br><span class="line">(umask 0077; wg genkey &gt; private)   # 创建客户端私钥</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="允许-ssh-登录-root-用户"><a href="#允许-ssh-登录-root-用户" class="headerlink" title="允许 ssh 登录 root 用户"></a>允许 ssh 登录 root 用户</h2><p><code>vi /etc/ssh/sshd_config</code><br><code>PermitRootLogin yes</code></p>
+<p>接下来回到 PVE 中配置虚拟机中的 Arch Linux。</p>
+<h2 id="设置串口输出显示"><a href="#设置串口输出显示" class="headerlink" title="设置串口输出显示"></a>设置串口输出显示</h2><p>串口输出仅供图一乐，建议还是使用默认的显示输出。<br><code>vi /etc/default/grub</code><br>修改<code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet</code>中的<code>quiet</code><br><code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;console=tty0 console=ttyS0,115200n8&quot;</code><br><code>update-grub</code></p>
+<p>如果提示<code>update-grub</code>不存在，可以手动创建<br><code>vi /usr/sbin/update-grub</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line">set -e</span><br><span class="line">exec grub-mkconfig -o &#x2F;boot&#x2F;grub&#x2F;grub.cfg &quot;$@&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown root:root &#x2F;usr&#x2F;sbin&#x2F;update-grub</span><br><span class="line">chmod 755 &#x2F;usr&#x2F;sbin&#x2F;update-grub</span><br></pre></td></tr></table></figure>
 
-<p><code>vi /etc/wireguard/wg0.conf</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[Interface]</span><br><span class="line">Address &#x3D; 10.0.1.2&#x2F;24</span><br><span class="line">Address &#x3D; fd00::2&#x2F;128</span><br><span class="line">SaveConfig &#x3D; true</span><br><span class="line">ListenPort &#x3D; 1123</span><br><span class="line">PrivateKey &#x3D; (刚刚创建的客户端私钥)</span><br><span class="line"></span><br><span class="line"># IP forwarding   # 开启 IP 转发</span><br><span class="line">PreUp &#x3D; sysctl -w net.ipv4.ip_forward&#x3D;1</span><br><span class="line">PreUp &#x3D; sysctl -w net.ipv6.conf.all.forwarding&#x3D;1</span><br><span class="line"></span><br><span class="line"># 允许转发 以便对端访问客户端局域网</span><br><span class="line">PostUp &#x3D; iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line">PostDown &#x3D; iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line"></span><br><span class="line">[Peer]</span><br><span class="line">PublicKey &#x3D; （服务端公钥）</span><br><span class="line">AllowedIPs &#x3D; 0.0.0.0&#x2F;0, ::&#x2F;0</span><br><span class="line">Endpoint &#x3D; （服务器 IP）:1123</span><br><span class="line">PersistentKeepalive &#x3D; 25</span><br></pre></td></tr></table></figure>
-<p>如果客户端没有公网 IP，那么必须加上<code>PersistentKeepalive = 25</code>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wg-quick up wg0</span><br><span class="line">wg</span><br><span class="line">systemctl enable wg-quick@wg0   # 设置开机启动</span><br></pre></td></tr></table></figure>
-<p>确认两端已经连上。</p>
-<h2 id="将-qBittorrent-的监听端口从服务器转发给客户端"><a href="#将-qBittorrent-的监听端口从服务器转发给客户端" class="headerlink" title="将 qBittorrent 的监听端口从服务器转发给客户端"></a>将 qBittorrent 的监听端口从服务器转发给客户端</h2><p>我的监听端口是 11611。</p>
-<p>iptables-persistent 是为了让 iptables 命令在机器重启后也生效。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># TCP IPv4</span><br><span class="line">iptables -t nat -A PREROUTING -p tcp --dport 11611 -j DNAT --to-destination 10.0.0.2:11611   # 端口转发</span><br><span class="line">iptables -t nat -A POSTROUTING -p tcp -s 10.0.0.2 --sport 11611 -j SNAT --to-source （你的服务器 IP）:11611   # 将 qbee 发出的流量改写成服务器的 IP</span><br><span class="line"></span><br><span class="line"># TCP IPv6</span><br><span class="line">ip6tables -t nat -A PREROUTING -p tcp --dport 11611 -j DNAT --to-destination [fd00::2]:11611</span><br><span class="line">ip6tables -t nat -A POSTROUTING -d fd00::2 -p tcp --dport 11611 -j MASQUERADE</span><br><span class="line">ip6tables -t nat -A POSTROUTING -p tcp -s fd00::2 --sport 11611 -j SNAT --to-source [你的服务器 IPv6]:11611   # 将转发给 qbee 的流量来源改写成服务器</span><br><span class="line"></span><br><span class="line"># UDP IPv4</span><br><span class="line">iptables -t nat -A PREROUTING -p udp --dport 11611 -j DNAT --to-destination 10.0.0.2:11611</span><br><span class="line">iptables -t nat -A POSTROUTING -p udp -s 10.0.0.2 --sport 11611 -j SNAT --to-source （你的服务器IP）:11611</span><br><span class="line"></span><br><span class="line"># UDP IPv6</span><br><span class="line">ip6tables -t nat -A PREROUTING -p udp --dport 11611 -j DNAT --to-destination [fd00::2]:11611</span><br><span class="line">ip6tables -t nat -A POSTROUTING -d fd00::2 -p udp --dport 11611 -j MASQUERADE</span><br><span class="line">ip6tables -t nat -A POSTROUTING -p udp -s fd00::2 --sport 11611 -j SNAT --to-source [你的服务器 IPv6]:11611</span><br></pre></td></tr></table></figure>
-<p>IPv6 相比 IPv4，多了一条<code>将转发给 qbee 的流量来源改写成服务器</code>，导致在接受 IPv6 的传入连接时，qbee 一律显示来源 IP 为<code>fd00::1</code>。<br>但是不加的话会导致 IPv6 转发失败，原因未知，希望有大佬可以指教一下。<br>因此，必须在 qbee 的高级设置里勾选<code>允许来自同一 IP 地址的多个连接</code>。<br><img src="/images/blog12img1.jpg" alt="img1"></p>
-<p>使命令在重启后也继续生效:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># Arch 系</span><br><span class="line"># 执行以上规则后直接执行：</span><br><span class="line">touch &#x2F;etc&#x2F;iptables&#x2F;iptables.rules</span><br><span class="line">touch &#x2F;etc&#x2F;iptables&#x2F;ip6tables.rules</span><br><span class="line">systemctl enable iptables --now</span><br><span class="line">systemctl enable ip6tables --now</span><br><span class="line">iptables-save &gt; &#x2F;etc&#x2F;iptables&#x2F;iptables.rules</span><br><span class="line">ip6tables-save &gt; &#x2F;etc&#x2F;iptables&#x2F;ip6tables.rules</span><br><span class="line"># 命令会保存到&#96;&#96;&#96;&#x2F;etc&#x2F;iptables&#x2F;iptables.rules&#96;&#96;&#96;和&#96;&#96;&#96;&#x2F;etc&#x2F;iptables&#x2F;ip6tables.rules&#96;&#96;&#96;里，</span><br><span class="line"># 如果想删除，修改这两个文件或者直接删除就行了。</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Debian 系</span><br><span class="line"># 执行以上规则，然后使用&#96;&#96;&#96;iptables-persistent&#96;&#96;&#96;软件包。</span><br><span class="line">apt install iptables-persistent -y</span><br><span class="line">netfilter-persistent  save</span><br><span class="line"># 命令会保存到&#96;&#96;&#96;&#x2F;etc&#x2F;iptables&#x2F;rules.v4&#96;&#96;&#96;和&#96;&#96;&#96;&#x2F;etc&#x2F;iptables&#x2F;rules.v6&#96;&#96;&#96;里，</span><br><span class="line"># 如果想删除，修改这两个文件或者直接删除就行了。</span><br></pre></td></tr></table></figure>
+<h2 id="安装-qemu-guest-agent"><a href="#安装-qemu-guest-agent" class="headerlink" title="安装 qemu guest agent"></a>安装 qemu guest agent</h2><p>安装后可以在概览页面显示虚拟机的 IP 地址，也方便 PVE 在虚拟机内部执行指令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -Sy qemu-guest-agent -y</span><br><span class="line">systemctl enable qemu-guest-agent --now</span><br></pre></td></tr></table></figure>
 
-<p>重启后可通过命令<code>iptables -L -t nat</code>和<code>ip6tables -L -t nat</code>确认相关规则已生效。</p>
-<h2 id="虚拟机自动挂载-SMB，qbee-开机自启"><a href="#虚拟机自动挂载-SMB，qbee-开机自启" class="headerlink" title="虚拟机自动挂载 SMB，qbee 开机自启"></a>虚拟机自动挂载 SMB，qbee 开机自启</h2><p>种子客户端建议用 <a target="_blank" rel="noopener" href="https://github.com/c0re100/qBittorrent-Enhanced-Edition">qbee</a>，可以在高级设置里屏蔽吸血客户端。<br>有编译好的二进制，开箱即食。<br>为了安全性，请在 qbee 的高级设置里绑定接口为 wg0。<br>当然，想要开机自启的话还得自己写。<br><code>vi /usr/lib/systemd/system/qbee_boot.service</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;qbee_boot</span><br><span class="line">After&#x3D;network-online.target nss-lookup.target</span><br><span class="line">Wants&#x3D;network-online.target nss-lookup.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;oneshot</span><br><span class="line">ExecStart&#x3D;mount -t cifs -o user&#x3D;user,password&#x3D;password &#x2F;&#x2F;192.168.1.111&#x2F;wd&#x2F;media &#x2F;nas&#x2F;wd</span><br><span class="line">ExecStart&#x3D;systemctl start qbee</span><br><span class="line">SysVStartPriority&#x3D;99</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
-<p><code>vi /usr/lib/systemd/system/qbee.service</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;qbee</span><br><span class="line">After&#x3D;network-online.target nss-lookup.target</span><br><span class="line">Wants&#x3D;network-online.target nss-lookup.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;oneshot</span><br><span class="line">ExecStart&#x3D;&#x2F;root&#x2F;qbittorrent-nox --webui-port&#x3D;8080 -d --profile&#x3D;&#x2F;root&#x2F;qbconfig</span><br><span class="line">SysVStartPriority&#x3D;99</span><br><span class="line">RemainAfterExit&#x3D;yes</span><br></pre></td></tr></table></figure>
-<p>我发现在 fstab 里直接写挂载，systemd 里写 qbee 的话，有可能在 qbee 启动之后硬盘还未被挂载导致报错。<br>所以就写成了这种扭曲的样子（</p>
-<p>qbee_boot 启动了之后会自动启动 qbee，所以只需要设置前者开机自启就行了。<br><code>systemctl enable qbee_boot</code></p>
-<h2 id="Arch-Linux-开启-bbr"><a href="#Arch-Linux-开启-bbr" class="headerlink" title="Arch Linux 开启 bbr"></a>Arch Linux 开启 bbr</h2><p>对于 BT 这种大连接的情况，开启 bbr 也许有正面效果（吧？</p>
+
+<h2 id="启用-Google-TCP-BBR-v3"><a href="#启用-Google-TCP-BBR-v3" class="headerlink" title="启用 Google TCP BBR v3"></a>启用 Google TCP BBR v3</h2><p>这两台 Arch，一台要跑 qbee，另一台要用 WireGuard 代理 qbee 的所有流量。<br>吞吐量都很大，开启 bbr 也许有正面效果（吧？</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;net.core.default_qdisc&#x3D;fq_codel&quot; &gt;&gt; &#x2F;etc&#x2F;sysctl.d&#x2F;bbr.conf</span><br><span class="line">echo &quot;net.ipv4.tcp_congestion_control&#x3D;bbr&quot; &gt;&gt; &#x2F;etc&#x2F;sysctl.d&#x2F;bbr.conf</span><br><span class="line">modprobe tcp_bbr</span><br><span class="line">sysctl -p &#x2F;etc&#x2F;sysctl.d&#x2F;bbr.conf</span><br></pre></td></tr></table></figure>
 <p>确认开启</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br><span class="line">sysctl net.ipv4.tcp_congestion_control</span><br></pre></td></tr></table></figure>
-<p>查看 bbr 版本<br><code>modinfo tcp_bbr</code></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.procustodibus.com/blog/2020/11/wireguard-point-to-site-config/#configure-routing-on-host-b">WireGuard Point to Site Configuration WIREGUARD</a><br><a target="_blank" rel="noopener" href="https://cloud-atlas.readthedocs.io/zh-cn/latest/linux/security/vpn/wireguard/deploy_wireguard.html">部署WireGuard VPN</a><br><a target="_blank" rel="noopener" href="https://blog.acesheep.com/index.php/archives/973/">Linux 启用 IP 转发 (IPv4 / IPv6) | 内核转发</a><br><a target="_blank" rel="noopener" href="https://blog.messyghost.net/?p=130">利用WireGuard进行端口转发</a><br><a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/wiki/Iptables">iptables</a><br><a target="_blank" rel="noopener" href="https://www.sourismu.me/archives/87/">Ubuntu下如何永久保存iptables规则</a><br><a target="_blank" rel="noopener" href="https://hostloc.com/thread-1014496-1-1.html">ip6tables IPV6 端口转发</a><br><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/linux-check-port-usage.html">Linux 查看端口占用情况</a><br><a target="_blank" rel="noopener" href="https://zakariyya.github.io/2018/04/23/%E6%90%AD%E5%BB%BA-%E7%BF%BB%E5%A2%99-arch-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC/">arch开机自启动脚本</a><br><a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/wiki/Systemd">systemd</a><br><a target="_blank" rel="noopener" href="https://www.yywr.net/547.yy">Linux 程序开机启动并保活：Systemd 进程守护管理工具</a><br><a target="_blank" rel="noopener" href="https://gist.github.com/epyonavenger/a7d0bdcdb64169c4b0031391e10ff203">Enabling BBR On Arch Linux 6.5.5+</a><br><a target="_blank" rel="noopener" href="https://www.hishd.top/archives/2024/279">BBR V3的安装和效果测试</a></p>
-<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>在 systemd 207 之前，开启 IP 转发是在<code>/etc/sysctl.conf</code>中修改或添加两行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.ip_forward &#x3D; 1</span><br><span class="line">net.ipv6.conf.all.forwarding&#x3D;1</span><br></pre></td></tr></table></figure>
-<p>而在 systemd 207 之后，文件变成了<code>/etc/sysctl.d/99-sysctl.conf</code>。</p>
-<p>参见：<br><a target="_blank" rel="noopener" href="https://blog.acesheep.com/index.php/archives/973/">Linux 启用 IP 转发 (IPv4 / IPv6) | 内核转发</a><br><a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/wiki/Sysctl">sysctl</a></p>
+<p>确认 BBR 版本<br><code>modinfo tcp_bbr</code></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://lala.im/7262.html">buyvm安装archlinux</a><br><a target="_blank" rel="noopener" href="https://cloud-atlas.readthedocs.io/zh-cn/latest/linux/arch_linux/archlinux_config_ip.html">arch linux配置IP(静态或动态)</a><br><a target="_blank" rel="noopener" href="https://dausruddin.com/how-to-enable-ipv6-on-buyvm-vps-with-ubuntu-20-04/">How to enable IPv6 on BuyVM VPS with Ubuntu 20.04</a><br><a target="_blank" rel="noopener" href="https://lowendtalk.com/discussion/169031/assigning-ipv6-to-debian-vps-how">Assigning IPv6 to Debian VPS … How?</a><br><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/418666/update-grub-command-not-found">chmod 755 /usr/sbin/update-grub</a><br><a target="_blank" rel="noopener" href="https://foxi.buduanwang.vip/virtualization/pve/530.html/">PVE中 qemu guest agent的安装和使用</a><br><a target="_blank" rel="noopener" href="https://gist.github.com/epyonavenger/a7d0bdcdb64169c4b0031391e10ff203">Enabling BBR On Arch Linux 6.5.5+</a><br><a target="_blank" rel="noopener" href="https://www.hishd.top/archives/2024/279">BBR V3的安装和效果测试</a></p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/20231230-2200.html">
-        上一篇<br>折腾轻量级 FreeBSD 虚拟机
+    <a class="newer-posts" href="/20231227-2031.html">
+        上一篇<br>AIO：3. WireGuard + 端口转发，解决 qbee 套 VPN 后的“NAT”问题
     </a>
     
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/20230726-1510.html">
-        下一篇<br>PVE 及 TrueNAS CORE 的安装与简单设置
+    <a class="older-posts" href="/20230726-1511.html">
+        下一篇<br>AIO：1. TrueNAS core
     </a>
     
 </nav>
@@ -269,7 +248,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?41258741"></script>
+<script src="/js/journal.js?38591383"></script>
 
 
 

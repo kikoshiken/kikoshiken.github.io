@@ -4,13 +4,12 @@
 <html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>在 BuyVM 的服务器上安装 Arch Linux - 离子键&#39;s blog</title>
+    <title>AIO：4. OpenWrt, Windows - 离子键&#39;s blog</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="kikoshiken">
-<meta name="description" content="闲的。主要踩坑点在网络。
-在安装阶段建议预先安装好vi和net-tools，方便排错。
-在他家的机子上安装 Arc...">
+<meta name="description" content="给 OpenWrt 编译添加 qemu guest agentmake menuconfig
+123Utiliti...">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -20,7 +19,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?43392399">
+<link rel="stylesheet" href="/css/journal.css?49798600">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -71,12 +70,12 @@
 
             
             
-            <a class="a-block drawer-menu-item false" href="/追番/index.html">
-                追番
-            </a>
-            
             <a class="a-block drawer-menu-item false" href="/关于/index.html">
                 关于
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/追番/index.html">
+                追番
             </a>
             
 
@@ -122,12 +121,12 @@
 
         
         
-        <a class="a-block nav-link-item false" href="/追番/index.html">
-            追番
-        </a>
-        
         <a class="a-block nav-link-item false" href="/关于/index.html">
             关于
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/追番/index.html">
+            追番
         </a>
         
 
@@ -163,10 +162,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    在 BuyVM 的服务器上安装 Arch Linux
+                    AIO：4. OpenWrt, Windows
                     <div class="post-meta">
-                        <time datetime="2023-12-30T15:30:00.000Z" itemprop="datePublished">
-                            2023-12-30 23:30
+                        <time datetime="2024-02-12T11:30:00.000Z" itemprop="datePublished">
+                            2024-02-12 19:30
                         </time>&nbsp;
                         
     
@@ -177,22 +176,13 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <p>闲的。主要踩坑点在网络。</p>
-<p>在安装阶段建议预先安装好<code>vi</code>和<code>net-tools</code>，方便排错。</p>
-<p>在他家的机子上安装 Arch 很奇怪，启动至安装镜像的时候是有网络的，但只要装完进入主系统，网络就丢失了，即便在安装阶段选择“套用当前网络设定”。</p>
-<h2 id="手动配置网络"><a href="#手动配置网络" class="headerlink" title="手动配置网络"></a>手动配置网络</h2><p>先把接口名称改回传统命名方便识别。<br><code>ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules</code><br>配置静态 IP。<br><code>vi /etc/systemd/network/eth0.network</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[Match]</span><br><span class="line">Name&#x3D;eth0</span><br><span class="line"></span><br><span class="line">[Network]</span><br><span class="line">Address&#x3D;（你的 IPv4 地址）&#x2F;24</span><br><span class="line">Gateway&#x3D;（你的IPv4 地址网关）</span><br><span class="line">Address&#x3D;（你的 IPv6 地址）</span><br><span class="line">Gateway&#x3D;（你的IPv6 地址网关）</span><br><span class="line">DNS&#x3D;8.8.8.8</span><br></pre></td></tr></table></figure>
-<p>地址和网关都能在控制面板里查看，其中 IPv6 地址还需在面板里手动添加，<a target="_blank" rel="noopener" href="https://dausruddin.com/how-to-enable-ipv6-on-buyvm-vps-with-ubuntu-20-04/">教程</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable systemd-networkd --now</span><br><span class="line">systemctl enable systemd-resolved --now</span><br></pre></td></tr></table></figure>
+                    <h2 id="给-OpenWrt-编译添加-qemu-guest-agent"><a href="#给-OpenWrt-编译添加-qemu-guest-agent" class="headerlink" title="给 OpenWrt 编译添加 qemu guest agent"></a>给 OpenWrt 编译添加 qemu guest agent</h2><p><code>make menuconfig</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Utilities ---&gt;</span><br><span class="line">    Virtualization ---&gt;</span><br><span class="line">        &lt;*&gt; qemu-ga</span><br></pre></td></tr></table></figure>
 
 
-<h2 id="更换-pf-kernel"><a href="#更换-pf-kernel" class="headerlink" title="更换 pf-kernel"></a>更换 pf-kernel</h2><p>首先确认可以安装哪个内核。<br><code>/lib/ld-linux-x86-64.so.2 --help | grep supported</code><br>如果输出包含<code>x86-64-v3 (supported, searched)</code>，则安装 v3，<br>如果仅包含<code>x86-64-v2 (supported, searched)</code>，则只能安装 v2。</p>
-<p>然后按照 <a target="_blank" rel="noopener" href="https://pfkernel.natalenko.name/">pf-kernel</a> 页面中的教程按照内核本体。</p>
-<p>卸载原内核并更新 grub。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -R linux</span><br><span class="line">grub-mkconfig -o &#x2F;boot&#x2F;grub&#x2F;grub.cfg</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://lala.im/7262.html">buyvm安装archlinux</a><br><a target="_blank" rel="noopener" href="https://cloud-atlas.readthedocs.io/zh-cn/latest/linux/arch_linux/archlinux_config_ip.html">arch linux配置IP(静态或动态)</a><br><a target="_blank" rel="noopener" href="https://dausruddin.com/how-to-enable-ipv6-on-buyvm-vps-with-ubuntu-20-04/">How to enable IPv6 on BuyVM VPS with Ubuntu 20.04</a><br><a target="_blank" rel="noopener" href="https://lowendtalk.com/discussion/169031/assigning-ipv6-to-debian-vps-how">Assigning IPv6 to Debian VPS … How?</a><br><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Unofficial_user_repositories/Repo-ck#Kernels_package">Unofficial user repositories/Repo-ck</a><br><a target="_blank" rel="noopener" href="https://pfkernel.natalenko.name/">pf-kernel</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43031092/article/details/118399251">将 Arch Linux 内核从 stable 更换为 LTS 的办法与案例</a></p>
+<h2 id="OpenWrt"><a href="#OpenWrt" class="headerlink" title="OpenWrt"></a>OpenWrt</h2><p>创建 OpenWrt 虚拟机的方法和先前创建 Arch Linux 的时候差不多，唯一不同的地方在于，不需要提前分配硬盘。<br>然后上传编译好的 img 镜像。<br><code>qm importdisk 103 openwrt.img  local --format=qcow2</code><br>然后手动去对应的 WEB 界面里添加硬盘就可以了。</p>
+<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>宁愿24小时开着一个 Win10 虚拟机也不给度盘充一分钱。<br>顺便再跑个 AdGuard Home。当然你跑在 OpenWrt 上也没问题。<br><a target="_blank" rel="noopener" href="https://adguard.com/zh_cn/adguard-windows/overview.html">Windows 版二进制官方下载地址</a>。<br>解压，CMD 进入二进制所在文件夹，执行命令安装服务。<br><code>.\AdGuardHome.exe --service install</code></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://foxi.buduanwang.vip/virtualization/372.html/">pve为vm导入已有的磁盘镜像/qcow2/vmdk</a><br><a target="_blank" rel="noopener" href="https://sspai.com/post/63088">AdGuard Home 安装及使用指北</a></p>
 
                 </div>
             </div>
@@ -201,8 +191,8 @@
     
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/20231230-2200.html">
-        下一篇<br>折腾轻量级 FreeBSD 虚拟机
+    <a class="older-posts" href="/20231227-2031.html">
+        下一篇<br>AIO：3. WireGuard + 端口转发，解决 qbee 套 VPN 后的“NAT”问题
     </a>
     
 </nav>
@@ -233,7 +223,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?67148001"></script>
+<script src="/js/journal.js?71961849"></script>
 
 
 

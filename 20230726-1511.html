@@ -4,11 +4,11 @@
 <html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>标签: 技术 - 离子键&#39;s blog</title>
+    <title>AIO：1. TrueNAS core - 离子键&#39;s blog</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="kikoshiken">
-<meta name="description" content="离子键的个人博客。">
+<meta name="description" content="开启 RTL 8125B 网卡支持最新版已经内置了 RTL 2.5G 网卡的驱动，但存在些许问题，没有默认开启。修...">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?80980689">
+<link rel="stylesheet" href="/css/journal.css?3874175">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -150,106 +150,79 @@
         </a>
 
         
-        
-
-        
-
-        
-        
     </div>
 </div>
 
+
+
 <div ref="streamContainer" class="stream-container">
     <div class="post-list-container post-list-container-shadow">
-        <div class="post-item-wrapper post-item-wrapper-no-hover">
-            <div class="post-item post-item-no-gaps">
-                <div class="post-item-info-wrapper">
-                    <div class="post-item-title  post-item-title-small">
-                        <a href="/tags/">标签</a> / 技术
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    AIO：1. TrueNAS core
+                    <div class="post-meta">
+                        <time datetime="2023-07-26T06:11:00.000Z" itemprop="datePublished">
+                            2023-07-26 14:11
+                        </time>&nbsp;
+                        
+    
+                        
                     </div>
                 </div>
             </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h2 id="开启-RTL-8125B-网卡支持"><a href="#开启-RTL-8125B-网卡支持" class="headerlink" title="开启 RTL 8125B 网卡支持"></a>开启 RTL 8125B 网卡支持</h2><p>最新版已经内置了 RTL 2.5G 网卡的驱动，但存在些许问题，没有默认开启。<br>修改以下文件；添加：<br><code>vi /boot/loader.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># RTL 8125B</span><br><span class="line">if_re_load&#x3D;&quot;YES&quot;</span><br><span class="line">if_re_name&#x3D;&quot;&#x2F;boot&#x2F;modules&#x2F;if_re.ko&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="设置内存仅缓存元数据"><a href="#设置内存仅缓存元数据" class="headerlink" title="设置内存仅缓存元数据"></a>设置内存仅缓存元数据</h2><p>高贵的全闪阵列就算是裸跑也能跑满2.5G网卡（<br><code>zfs set primarycache=metadata tank/datab</code></p>
+<h2 id="监狱-pkg-更换中科大源"><a href="#监狱-pkg-更换中科大源" class="headerlink" title="监狱 pkg 更换中科大源"></a>监狱 pkg 更换中科大源</h2><p>适合中国的网络环境。<br>创建目录及文件；粘贴以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;usr&#x2F;local&#x2F;etc&#x2F;pkg&#x2F;repos</span><br><span class="line">vi &#x2F;usr&#x2F;local&#x2F;etc&#x2F;pkg&#x2F;repos&#x2F;FreeBSD.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FreeBSD: &#123;</span><br><span class="line">  url: &quot;pkg+http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;freebsd-pkg&#x2F;$&#123;ABI&#125;&#x2F;quarterly&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>pkg update -f</code></p>
+<h2 id="监狱-开启-SSH"><a href="#监狱-开启-SSH" class="headerlink" title="监狱 开启 SSH"></a>监狱 开启 SSH</h2><p>修改以下文件；找到对应项目更改为：<br><code>vi /etc/ssh/sshd_config</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">port 22</span><br><span class="line">PermitRootLogin yes</span><br></pre></td></tr></table></figure>
+
+<p>设置 root 用户密码；SSH 开机自启；启用 SSH。<br><code>passwd root</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysrc sshd_enable&#x3D;yes</span><br><span class="line">service sshd start</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="监狱-编译安装-qBittorrent-Enhanced-Edition"><a href="#监狱-编译安装-qBittorrent-Enhanced-Edition" class="headerlink" title="监狱 编译安装 qBittorrent-Enhanced-Edition"></a>监狱 编译安装 qBittorrent-Enhanced-Edition</h2><p><code>pkg install git pkgconf qt5-core qt5-network qt5-svg qt5-linguisttools qt5-buildtools qt5-qmake boost-all libtorrent-rasterbar qt5-sql openssl</code><br><code>git clone https://github.com/c0re100/qBittorrent-Enhanced-Edition</code></p>
+<p>如果是通过 SCP 协议接收的文件，还需更改权限。<br><code>chmod -R +x qBittorrent-Enhanced-Edition</code></p>
+<p>编辑源码添加一行，否则编译报错。<br><code>vi qBittorrent-Enhanced-Editionsrc/src.pro</code><br><code>DEFINES += _GNU_SOURCE</code><br><img src="/images/blog12img1.webp" alt="img1"></p>
+<p>编译及安装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;configure --disable-gui --prefix&#x3D;&#x2F;usr</span><br><span class="line">make -j4</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p>设置开机启动，并将相关配置文件保存到你喜欢的位置。<br><code>vi /etc/rc.local</code><br><code>/usr/bin/qbittorrent-nox --webui-port=8080 -d --profile=/root/qbconfig</code></p>
+<h2 id="部分参考"><a href="#部分参考" class="headerlink" title="部分参考"></a>部分参考</h2><p><a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/help/freebsd-pkg.html">FreeBSD pkg 源使用帮助</a><br><a target="_blank" rel="noopener" href="https://github.com/qbittorrent/qBittorrent/wiki/Compilation:-FreeBSD-(no-GUI)">Compilation: FreeBSD (no GUI)</a></p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <a class="newer-posts" href="/20231227-2030.html">
+        上一篇<br>AIO：2. Arch Linux
+    </a>
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/20230726-1510.html">
+        下一篇<br>AIO：0. PVE
+    </a>
+    
+</nav>
+
+    
+            
+
+
         </div>
-        
-        <a href="/20210427-2115.html" class="a-block">
-            <div class="post-item-wrapper">
-                <div class="post-item post-item-no-gaps">
-                    <div class="post-item-info-wrapper">
-                        <div class="post-item-title">
-                            打造内大最强路由器（五）：番外：白嫖校园网、路由器不断电
-                        </div>
-                        <div class="post-item-meta">
-                            2021-04-27
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        
-        <a href="/20210401-1615.html" class="a-block">
-            <div class="post-item-wrapper">
-                <div class="post-item post-item-no-gaps">
-                    <div class="post-item-info-wrapper">
-                        <div class="post-item-title">
-                            打造内大最强路由器（四）：细节优化：IPv6穿透、DNS设置、断网重连
-                        </div>
-                        <div class="post-item-meta">
-                            2021-04-01
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        
-        <a href="/20210331-1130.html" class="a-block">
-            <div class="post-item-wrapper">
-                <div class="post-item post-item-no-gaps">
-                    <div class="post-item-info-wrapper">
-                        <div class="post-item-title">
-                            打造内大最强路由器（三）：多线多拨实现带宽叠加
-                        </div>
-                        <div class="post-item-meta">
-                            2021-03-31
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        
-        <a href="/20210330-1620.html" class="a-block">
-            <div class="post-item-wrapper">
-                <div class="post-item post-item-no-gaps">
-                    <div class="post-item-info-wrapper">
-                        <div class="post-item-title">
-                            打造内大最强路由器（二）：深澜WEB自动认证
-                        </div>
-                        <div class="post-item-meta">
-                            2021-03-30
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        
-        <a href="/20210329-1010.html" class="a-block">
-            <div class="post-item-wrapper">
-                <div class="post-item post-item-no-gaps">
-                    <div class="post-item-info-wrapper">
-                        <div class="post-item-title">
-                            打造内大最强路由器（一）：新路由3、Breed、固件与基本设置
-                        </div>
-                        <div class="post-item-meta">
-                            2021-03-29
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        
-
-        
     </div>
-
     <div class="single-column-footer">
     Proudly published with Hexo<br>
     
@@ -270,7 +243,9 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?3065813"></script>
+<script src="/js/journal.js?59210178"></script>
+
+
 
 </body>
 </html>
