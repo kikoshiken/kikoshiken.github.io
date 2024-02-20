@@ -19,7 +19,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?42298093">
+<link rel="stylesheet" href="/css/journal.css?16186975">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -70,12 +70,12 @@
 
             
             
-            <a class="a-block drawer-menu-item false" href="/关于/index.html">
-                关于
-            </a>
-            
             <a class="a-block drawer-menu-item false" href="/追番/index.html">
                 追番
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/关于/index.html">
+                关于
             </a>
             
 
@@ -121,12 +121,12 @@
 
         
         
-        <a class="a-block nav-link-item false" href="/关于/index.html">
-            关于
-        </a>
-        
         <a class="a-block nav-link-item false" href="/追番/index.html">
             追番
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/关于/index.html">
+            关于
         </a>
         
 
@@ -183,7 +183,7 @@
 <h2 id="服务端配置-WireGuard"><a href="#服务端配置-WireGuard" class="headerlink" title="服务端配置 WireGuard"></a>服务端配置 WireGuard</h2><p>WireGuard 其实并不区分服务端和客户端，这里只是为了区分两台机器。</p>
 <p>强烈建议阅读<a target="_blank" rel="noopener" href="https://www.procustodibus.com/blog/2020/11/wireguard-point-to-site-config/#configure-routing-on-host-b">这篇文章</a>。</p>
 <p>服务器是 Arch，默认以 root 用户运行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Pacman -Sy wireguard-tools -y</span><br><span class="line">(umask 0077; wg genkey &gt; private)   # 创建服务器端私钥</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Pacman -Sy wireguard-tools</span><br><span class="line">(umask 0077; wg genkey &gt; private)   # 创建服务器端私钥</span><br></pre></td></tr></table></figure>
 <p><code>vi /etc/wireguard/wg0.conf</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Interface]</span><br><span class="line">Address &#x3D; 10.0.1.1&#x2F;24</span><br><span class="line">Address &#x3D; fd00::1&#x2F;128</span><br><span class="line">SaveConfig &#x3D; true</span><br><span class="line">ListenPort &#x3D; 1123</span><br><span class="line">PrivateKey &#x3D; （刚刚创建的服务端私钥）</span><br><span class="line"></span><br><span class="line"># 启用内核转发</span><br><span class="line">PreUp &#x3D; sysctl -w net.ipv4.ip_forward&#x3D;1</span><br><span class="line">PreUp &#x3D; sysctl -w net.ipv6.conf.all.forwarding&#x3D;1</span><br><span class="line"></span><br><span class="line"># 防火墙允许转发</span><br><span class="line">PostUp &#x3D; iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line">PostDown &#x3D; iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE</span><br></pre></td></tr></table></figure>
 <p>1123 是本机的 WireGuard 端口，选个喜欢的就好了。</p>
@@ -192,7 +192,7 @@
 
 <h2 id="客户端配置-WireGuard"><a href="#客户端配置-WireGuard" class="headerlink" title="客户端配置 WireGuard"></a>客户端配置 WireGuard</h2><p>客户端也是 ArchLinux。</p>
 <p>为什么不用 Debian？因为垃圾螃蟹 8125B 在 Debian 系上跑不起来，还得是 Arch 系的内核版本够高（</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -Sy wireguard-tools -y</span><br><span class="line">(umask 0077; wg genkey &gt; private)   # 创建客户端私钥</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -Sy wireguard-tools</span><br><span class="line">(umask 0077; wg genkey &gt; private)   # 创建客户端私钥</span><br></pre></td></tr></table></figure>
 
 <p><code>vi /etc/wireguard/wg0.conf</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[Interface]</span><br><span class="line">Address &#x3D; 10.0.1.2&#x2F;24</span><br><span class="line">Address &#x3D; fd00::2&#x2F;128</span><br><span class="line">SaveConfig &#x3D; true</span><br><span class="line">ListenPort &#x3D; 1123</span><br><span class="line">PrivateKey &#x3D; (刚刚创建的客户端私钥)</span><br><span class="line"></span><br><span class="line"># IP forwarding   # 开启 IP 转发</span><br><span class="line">PreUp &#x3D; sysctl -w net.ipv4.ip_forward&#x3D;1</span><br><span class="line">PreUp &#x3D; sysctl -w net.ipv6.conf.all.forwarding&#x3D;1</span><br><span class="line"></span><br><span class="line"># 允许转发 以便对端访问客户端局域网</span><br><span class="line">PostUp &#x3D; iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line">PostDown &#x3D; iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line"></span><br><span class="line">[Peer]</span><br><span class="line">PublicKey &#x3D; （服务端公钥）</span><br><span class="line">AllowedIPs &#x3D; 0.0.0.0&#x2F;0, ::&#x2F;0</span><br><span class="line">Endpoint &#x3D; （服务器 IP）:1123</span><br><span class="line">PersistentKeepalive &#x3D; 25</span><br></pre></td></tr></table></figure>
@@ -263,7 +263,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?7735980"></script>
+<script src="/js/journal.js?89909213"></script>
 
 
 

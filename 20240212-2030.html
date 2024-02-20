@@ -9,8 +9,9 @@
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="kikoshiken">
 <meta name="description" content="编译 OpenWrt
-添加 qemu guest agentmake menuconfig
-123Utilitie...">
+安装依赖yay -Sy openwrt-devel
+
+Lean 的 LEDE 源码预装组件太...">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -20,7 +21,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?31305608">
+<link rel="stylesheet" href="/css/journal.css?45229126">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -71,12 +72,12 @@
 
             
             
-            <a class="a-block drawer-menu-item false" href="/关于/index.html">
-                关于
-            </a>
-            
             <a class="a-block drawer-menu-item false" href="/追番/index.html">
                 追番
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/关于/index.html">
+                关于
             </a>
             
 
@@ -122,12 +123,12 @@
 
         
         
-        <a class="a-block nav-link-item false" href="/关于/index.html">
-            关于
-        </a>
-        
         <a class="a-block nav-link-item false" href="/追番/index.html">
             追番
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/关于/index.html">
+            关于
         </a>
         
 
@@ -178,12 +179,17 @@
             <div class="post-body-wrapper">
                 <div class="post-body">
                     <h2 id="编译-OpenWrt"><a href="#编译-OpenWrt" class="headerlink" title="编译 OpenWrt"></a>编译 OpenWrt</h2><ul>
-<li><p>添加 qemu guest agent<br><code>make menuconfig</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Utilities ---&gt;</span><br><span class="line">    Virtualization ---&gt;</span><br><span class="line">        &lt;*&gt; qemu-ga</span><br></pre></td></tr></table></figure>
+<li><p>安装依赖<br><code>yay -Sy openwrt-devel</code></p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/coolsnowwolf/lede">Lean 的 LEDE 源码</a>预装组件太多了，如果想删除，需要修改源码目录里的以下文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">include&#x2F;target.mk</span><br><span class="line">target&#x2F;linux&#x2F;*&#x2F;&#123;Makefile,subtarget&#x2F;target.mk,image&#x2F;Makefile,image&#x2F;subtarget.mk&#125;</span><br></pre></td></tr></table></figure>
 <p>我更推荐天灵的 <a target="_blank" rel="noopener" href="https://github.com/immortalwrt/immortalwrt">immortalwrt</a>。</p>
+</li>
+<li><p>选择测试内核<br>内核版本会更高。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Global build settings  ---&gt;</span><br><span class="line">    *** General build options ***</span><br><span class="line">    [*] Use the testing kernel version</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加 qemu guest agent</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Utilities ---&gt;</span><br><span class="line">    Virtualization ---&gt;</span><br><span class="line">        &lt;*&gt; qemu-ga</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>不编译<code>block-mount</code><br>某些版本的<code>block-mount</code>导致开机后硬盘进入只读模式，参见<a target="_blank" rel="noopener" href="https://github.com/coolsnowwolf/lede/issues/10317">此处</a>。<br>可通过修改上面的文件删除预装项或在<code>make menuconfig</code>中取消勾选。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Extra packages ---&gt; automount</span><br><span class="line">Base system ---&gt; block-mount</span><br></pre></td></tr></table></figure>
@@ -234,7 +240,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?47701667"></script>
+<script src="/js/journal.js?71804968"></script>
 
 
 
