@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?22151731">
+<link rel="stylesheet" href="/css/journal.css?44465014">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -198,7 +198,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;configure --disable-gui --prefix&#x3D;&#x2F;usr</span><br><span class="line">make -j4</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
 
 <p>设置开机启动，并将相关配置文件保存到你喜欢的位置。<br><code>vi /etc/rc.local</code><br><code>/usr/bin/qbittorrent-nox --webui-port=8080 -d --profile=/root/qbconfig</code></p>
-<h2 id="部分参考"><a href="#部分参考" class="headerlink" title="部分参考"></a>部分参考</h2><p><a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/help/freebsd-pkg.html">FreeBSD pkg 源使用帮助</a><br><a target="_blank" rel="noopener" href="https://github.com/qbittorrent/qBittorrent/wiki/Compilation:-FreeBSD-(no-GUI)">Compilation: FreeBSD (no GUI)</a></p>
+<h2 id="如果你选择使用社区提供的官方-qBittorrent"><a href="#如果你选择使用社区提供的官方-qBittorrent" class="headerlink" title="如果你选择使用社区提供的官方 qBittorrent"></a>如果你选择使用社区提供的官方 qBittorrent</h2><p>qBittorrent 相关目录文件在这里。<br><code>/var/db/qbittorrent/conf/qBittorrent/</code><br>4.6.1及后续版本更改了默认 web 密码，可以修改此文件<br><code>vi /var/db/qbittorrent/conf/qBittorrent/config</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Preferences]</span><br><span class="line">WebUI\Password_PBKDF2&#x3D;&quot;@ByteArray(ARQ77eY1NUZaQsuDHbIMCA&#x3D;&#x3D;:0WMRkYTUWVT9wVvdDtHAjU9b3b7uB8NR1Gur2hmQCvCDpm39Q+PsJRJPaCU51dEiz+dTzh8qbPsL8WkFljQYFQ&#x3D;&#x3D;)&quot;</span><br></pre></td></tr></table></figure>
+<p>修改后会将 web 账户密码改回<code>admin</code>和<code>adminadmin</code>，在登入之后再进行修改。</p>
+<h2 id="部分参考"><a href="#部分参考" class="headerlink" title="部分参考"></a>部分参考</h2><p><a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/help/freebsd-pkg.html">FreeBSD pkg 源使用帮助</a><br><a target="_blank" rel="noopener" href="https://github.com/qbittorrent/qBittorrent/wiki/Compilation:-FreeBSD-(no-GUI)">Compilation: FreeBSD (no GUI)</a><br><a target="_blank" rel="noopener" href="https://www.truenas.com/community/threads/plugin-qbittorrent-path.110035/">Plugin qBittorrent path.</a><br><a target="_blank" rel="noopener" href="https://www.reddit.com/r/unRAID/comments/180ou0b/psa_if_you_cant_login_to_qbittorrent_pass/">PSA: If you can’t login to qBittorrent (pass: adminadmin) check the container log .</a></p>
 
                 </div>
             </div>
@@ -243,7 +246,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?95899641"></script>
+<script src="/js/journal.js?17695477"></script>
 
 
 
