@@ -22,6 +22,9 @@ lspci -nn | grep -i nvme
 
 编辑 VFIO 配置文件并添加一行。
 ```
+vi /etc/modprobe.d/vfio.conf
+```
+```
 options vfio-pci ids=144d:a80d disable_idle_d3=1
 ```
 ```
