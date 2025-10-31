@@ -1,6 +1,6 @@
 ---
 title: AIO：0. PVE
-excerpt: 本系列为我的 J4125 搭建 ALL IN BOOM 的摸索笔记。
+excerpt: 本系列为我的 J4125 搭建 ALL-IN-BOOM 的摸索笔记。
 publishDate: 2023-07-26 14:10:00
 tags:
   - 软路由
@@ -56,6 +56,7 @@ vi /etc/default/grub
 
 ```
 GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"
+GRUB_CMDLINE_LINUX="intel_iommu=on"
 ```
 
 * 添加内核模块
@@ -66,9 +67,8 @@ vi /etc/modules
 
 ```
 vfio
- vfio_iommu_type1
- vfio_pci
- vfio_virqfd
+vfio_iommu_type1
+vfio_pci
 ```
 
 ```
@@ -94,7 +94,9 @@ root=ZFS=rpool/ROOT/pve-1 boot=zfs intel_iommu=on​
 update-initramfs -u -k all
 ```
 
-* 重启
+* 重启确认
+```dmesg | grep -e DMAR -e IOMMU```
+
 
 
 ## 给垃圾 RTL 8125B 网卡更换官方驱动
@@ -216,6 +218,7 @@ qm set <vmid> --scsi2 /dev/disk/by-id/nvme-eui.5cd2e4bf63af0100
 ## 参考
 [Proxmox VEで無償版リポジトリを設定する ](https://blog.nishi.network/2023/02/12/proxmox7-3-repository/)  
 [ProxmoxVE 合并local和local-lvm分区](https://www.xg2.top/archives/8530.html)  
+[在 Proxmox 上進行 PCI-E 直通](https://www.zenwen.tw/pci-passthrough-with-proxmox/)
 [PVE开启硬件直通功能](https://www.xh86.me/?p=11309)  
 [Enabling IOMMU on PVE6 (zfs) compared to PVE5.4 (ext4)?](https://forum.proxmox.com/threads/enabling-iommu-on-pve6-zfs-compared-to-pve5-4-ext4.56111/)  
 [PVE 8 安装 ReakTEK RTL8125B 2.5G网卡驱动](https://evine.win/p/pve-install-realtek-8125-driver/)  
