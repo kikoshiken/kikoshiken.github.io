@@ -217,6 +217,14 @@ qm set <vmid> --scsi2 /dev/disk/by-id/nvme-eui.5cd2e4bf63af0100
 直接在对应虚拟机的备份页面中进行备份，备份文件在```/var/lib/vz/dump/```，还原时在此处导入文件即可。
 
 
+## 安装 PVE-mods
+可在管理页面方便地查看CPU和硬盘温度等数据。
+```
+apt update
+apt-get install lm-sensors
+```
+
+
 ## 参考
 [Proxmox VEで無償版リポジトリを設定する ](https://blog.nishi.network/2023/02/12/proxmox7-3-repository/)  
 [ProxmoxVE 合并local和local-lvm分区](https://www.xg2.top/archives/8530.html)  
@@ -228,3 +236,4 @@ qm set <vmid> --scsi2 /dev/disk/by-id/nvme-eui.5cd2e4bf63af0100
 [Display](https://pve.proxmox.com/pve-docs/chapter-qm.html#qm_display)  
 [Proxmox VE与VNC](https://foxi.buduanwang.vip/virtualization/pve/1823.html/)  
 [Proxmox VE pve硬盘直通](https://foxi.buduanwang.vip/virtualization/1754.html/)  
+[Meliox/PVE-mods: Proxmox modifications](https://github.com/Meliox/PVE-mods)
