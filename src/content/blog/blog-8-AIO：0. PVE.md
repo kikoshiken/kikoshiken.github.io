@@ -95,7 +95,9 @@ update-initramfs -u -k all
 ```
 
 * 重启确认
-```dmesg | grep -e DMAR -e IOMMU```
+```
+dmesg | grep -e DMAR -e IOMMU
+```
 
 
 

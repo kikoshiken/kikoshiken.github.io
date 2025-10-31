@@ -13,12 +13,20 @@ isFeatured: true
 解决方法来自 PVE 论坛，原理不明。
 
 在 PVE 中列出所有 NVMe 硬盘，并记下 990EP 的 ID 是```144d:a80d```。
-```lspci -nn | grep -i nvme```
-```3:00.0 Non-Volatile memory controller [0108]: Samsung Electronics Co Ltd NVMe SSD Controller PM9C1a (DRAM-less) [144d:a80d]```
+```
+lspci -nn | grep -i nvme
+```
+```
+3:00.0 Non-Volatile memory controller [0108]: Samsung Electronics Co Ltd NVMe SSD Controller PM9C1a (DRAM-less) [144d:a80d]
+```
 
 编辑 VFIO 配置文件并添加一行。
-```options vfio-pci ids=144d:a80d disable_idle_d3=1```
-```update-initramfs -u```
+```
+options vfio-pci ids=144d:a80d disable_idle_d3=1
+```
+```
+update-initramfs -u
+```
 
 重启 PVE。
 
@@ -28,9 +36,13 @@ isFeatured: true
 省事，转移起来还方便。
 
 先手动运行一次修改好密码。
-```/root/qbittorrent-nox --webui-port=8080 --profile=/mnt/qb/config/qbee```
+```
+/root/qbittorrent-nox --webui-port=8080 --profile=/mnt/qb/config/qbee
+```
 
-```/etc/systemd/system/qbee.service```
+```
+/etc/systemd/system/qbee.service
+```
 ```
 [Unit]
 Description=qBittorrent-nox Service
