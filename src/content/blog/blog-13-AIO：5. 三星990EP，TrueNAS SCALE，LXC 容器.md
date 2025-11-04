@@ -91,7 +91,7 @@ Value: fq
 ```
 echo "net.ipv4.tcp_congestion_control = bbr" > /etc/sysctl.d/99-bbr.conf
 ```
-重启验证。
+重启验证:
 
 在 TrueNAS SCALE 运行：
 ```
