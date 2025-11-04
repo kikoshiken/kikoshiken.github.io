@@ -44,7 +44,7 @@ update-initramfs -u
 ```
 
 ```
-/etc/systemd/system/qbee.service
+vi /etc/systemd/system/qbee.service
 ```
 ```
 [Unit]
@@ -67,8 +67,7 @@ WantedBy=multi-user.target
 
 ```
 systemctl daemon-reload
-systemctl enable qbee.service
-systemctl start qbee.service
+systemctl enable qbee.service --now
 systemctl status qbee.service
 ```
 
@@ -93,11 +92,13 @@ Value: fq
 echo "net.ipv4.tcp_congestion_control = bbr" > /etc/sysctl.d/99-bbr.conf
 ```
 重启验证。
+
 在 TrueNAS SCALE 运行：
 ```
 sysctl net.core.default_qdisc
 ```
 应该输出```fq```。
+
 在容器中运行：
 ```
 sysctl net.ipv4.tcp_congestion_control
