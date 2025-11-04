@@ -1,5 +1,5 @@
 ---
-title: AIO：5. 三星990EP，TrueNAS SCALE
+title: AIO：5. 三星990EP，TrueNAS SCALE，LXC 容器
 excerpt: 丟掉 J4125，转战 N150！
 publishDate: 2025-10-31 14:00:00
 tags:
@@ -71,6 +71,38 @@ systemctl enable qbee.service
 systemctl start qbee.service
 systemctl status qbee.service
 ```
+
+
+## 在 TrueNAS SCALE 的容器中设置开启 WireGuard 和 BBR
+让 TrueNAS SCALE 在启动时加载相关模块，在 WEB UI 操作。
+```
+System Settings -> Advanced -> Init/Shutdown Scripts -> Add
+Description: Load Kernel Modules
+Type: Command
+Command: modprobe ip6_tables && modprobe ip6table_raw && modprobe tcp_bbr && modprobe sch_fq
+When: Pre Init
+```
+至此，WireGuard 已经可用，BBR 还差几步，继续在 WEB UI 操作。
+```
+System Settings -> Advanced -> Sysctl -> Add
+Variable: net.core.default_qdisc
+Value: fq
+```
+继续在容器中设定。
+```
+echo "net.ipv4.tcp_congestion_control = bbr" > /etc/sysctl.d/99-bbr.conf
+```
+重启验证。
+在 TrueNAS SCALE 运行：
+```
+sysctl net.core.default_qdisc
+```
+应该输出```fq```。
+在容器中运行：
+```
+sysctl net.ipv4.tcp_congestion_control
+```
+应该输出```bbr```。
 
 
 ## 参考

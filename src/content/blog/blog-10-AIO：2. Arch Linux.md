@@ -60,6 +60,9 @@ vi /etc/ssh/sshd_config
 ```
 PermitRootLogin yes
 ```
+```
+systemctl enable sshd --now
+```
 
 接下来回到 PVE 中配置虚拟机中的 Arch Linux。
 

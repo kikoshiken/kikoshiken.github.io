@@ -27,7 +27,12 @@ if_re_name="/boot/modules/if_re.ko"
 高贵的全闪阵列就算是裸跑也能跑满2.5G网卡（
 
 ```
-zfs set primarycache=metadata pool
+zfs set primarycache=metadata pool/dataset
+```
+
+验证结果
+```
+zfs get primarycache pool/dataset
 ```
 
 
