@@ -73,7 +73,7 @@ systemctl status qbee.service
 
 
 ## 在 TrueNAS SCALE 的容器中设置开启 WireGuard 和 BBR
-让 TrueNAS SCALE 在启动时加载相关模块，在 WEB UI 操作。
+让 TrueNAS SCALE 在启动时加载相关模块，在 WEB UI 操作后重启。
 ```
 System Settings -> Advanced -> Init/Shutdown Scripts -> Add
 Description: Load Kernel Modules
@@ -81,7 +81,7 @@ Type: Command
 Command: modprobe ip6_tables && modprobe ip6table_raw && modprobe tcp_bbr && modprobe sch_fq
 When: Pre Init
 ```
-至此，WireGuard 已经可用，BBR 还差几步，继续在 WEB UI 操作。
+至此，WireGuard 已经可用，BBR 还差几步，继续在 WEB UI 操作后重启。
 ```
 System Settings -> Advanced -> Sysctl -> Add
 Variable: net.core.default_qdisc
