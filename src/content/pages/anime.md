@@ -11,10 +11,10 @@ title: ？？！
 * __フードコートで、また明日。__
 * __ぐらんぶる　Season 2__
 * __青春ブタ野郎はサンタクロースの夢を見ない__
-よふかしのうた　Season2
-ぷにるはかわいいスライム　第2期
-ダンダダン　第2期
-瑠璃の宝石
+* よふかしのうた　Season2
+* ぷにるはかわいいスライム　第2期
+* ダンダダン　第2期
+* 瑠璃の宝石
 
 ### 2024.04
 * __日々は過ぎれど飯うまし__
@@ -23,11 +23,11 @@ title: ？？！
 * __LAZARUS ラザロ__
 * __Summer Pockets__
 * __mono__
-Anne Shirley
-機動戦士Gundam GQuuuuuuX
-戦隊大失格 2nd season
-前橋ウィッチーズ
-小市民シリーズ　第2期
+* Anne Shirley
+* 機動戦士Gundam GQuuuuuuX
+* 戦隊大失格 2nd season
+* 前橋ウィッチーズ
+* 小市民シリーズ　第2期
 
 ### 2025.01
 * __Momentary Lily__
