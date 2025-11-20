@@ -228,7 +228,7 @@ apt-get install lm-sensors
 ## 参考
 [Proxmox VEで無償版リポジトリを設定する ](https://blog.nishi.network/2023/02/12/proxmox7-3-repository/)  
 [ProxmoxVE 合并local和local-lvm分区](https://www.xg2.top/archives/8530.html)  
-[在 Proxmox 上進行 PCI-E 直通](https://www.zenwen.tw/pci-passthrough-with-proxmox/)
+[在 Proxmox 上進行 PCI-E 直通](https://www.zenwen.tw/pci-passthrough-with-proxmox/)  
 [PVE开启硬件直通功能](https://www.xh86.me/?p=11309)  
 [Enabling IOMMU on PVE6 (zfs) compared to PVE5.4 (ext4)?](https://forum.proxmox.com/threads/enabling-iommu-on-pve6-zfs-compared-to-pve5-4-ext4.56111/)  
 [PVE 8 安装 ReakTEK RTL8125B 2.5G网卡驱动](https://evine.win/p/pve-install-realtek-8125-driver/)  
@@ -236,4 +236,4 @@ apt-get install lm-sensors
 [Display](https://pve.proxmox.com/pve-docs/chapter-qm.html#qm_display)  
 [Proxmox VE与VNC](https://foxi.buduanwang.vip/virtualization/pve/1823.html/)  
 [Proxmox VE pve硬盘直通](https://foxi.buduanwang.vip/virtualization/1754.html/)  
-[Meliox/PVE-mods: Proxmox modifications](https://github.com/Meliox/PVE-mods)
+[Meliox/PVE-mods: Proxmox modifications](https://github.com/Meliox/PVE-mods)  

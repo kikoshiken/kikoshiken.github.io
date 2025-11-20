@@ -107,4 +107,4 @@ sysctl net.ipv4.tcp_congestion_control
 
 
 ## 参考
-[NVMe Passtrough not working trough M.2 adapter card](https://forum.proxmox.com/threads/nvme-passtrough-not-working-trough-m-2-adapter-card.163601/)
+[NVMe Passtrough not working trough M.2 adapter card](https://forum.proxmox.com/threads/nvme-passtrough-not-working-trough-m-2-adapter-card.163601/)  
