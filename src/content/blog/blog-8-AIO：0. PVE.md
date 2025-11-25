@@ -149,11 +149,10 @@ proxmox-boot-tool refresh
 ```
 修改 PCIe 总线编号。大部分情况下，核显的编号都是```00:02.0```。
 ```
-echo "devices/pci0000:00/0000:00:02.0/sriov_numvfs = 7" > /etc/sysfs.conf
+vi /etc/sysfs.conf
 ```
-验证修改有效。
 ```
-cat /etc/sysfs.conf
+devices/pci0000:00/0000:00:02.0/sriov_numvfs = 7
 ```
 重启并验证。
 ```
