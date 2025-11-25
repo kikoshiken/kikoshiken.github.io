@@ -102,7 +102,7 @@ __在第一行的后面添加！不要加到第二行去！__
 ```
 quiet intel_iommu=on
 ```
-刷新　BL。
+刷新 BL。
 ```
 pve-efiboot-tool refresh
 ```
