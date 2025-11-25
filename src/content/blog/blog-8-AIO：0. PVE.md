@@ -68,6 +68,31 @@ bash pve-mod-nag-screen.sh install
 ```
 
 
+## 不把内存给 ZFS
+~~只要不炸就行，谁管你读写性能（~~
+* 设置 ARC 能使用的内存为 64M
+```
+vi /etc/modprobe.d/zfs.conf
+```
+```
+options zfs zfs_arc_min=67108864
+options zfs zfs_arc_max=67108864
+```
+```
+update-initramfs -u -k all
+proxmox-boot-tool refresh
+```
+* 设置 ZFS 不要缓存任何东西
+```
+zfs set primarycache=none rpool
+```
+验证。
+```
+zfs get primarycache rpool
+```
+重启。
+
+
 ## 开启 PCI 直通
 本文的步骤仅适合使用 systemd-boot 启动的 PVE。
 ```
