@@ -53,7 +53,7 @@ args: -spice port=5902,addr=0.0.0.0,disable-ticketing=on
 ## WEB 管理页面优化
 可在管理页面方便地查看CPU和硬盘温度等数据，并关闭恼人的无订阅提醒。
 
-[PVE-mods 项目地址](https://github.com/Meliox/PVE-mods)
+[PVE-mods 项目地址。](https://github.com/Meliox/PVE-mods)
 ```
 apt-get install lm-sensors
 # lm-sensors must be configured, run below to configure your sensors, apply temperature offsets. Refer to lm-sensors manual for more information.
@@ -84,7 +84,7 @@ pve-efiboot-tool refresh
 
 
 ## SR-IOV 方式直通 GPU
-[教程原文](https://www.derekseaman.com/2024/07/proxmox-ve-8-2-windows-11-vgpu-vt-d-passthrough-with-intel-alder-lake.html)
+[教程原文。](https://www.derekseaman.com/2024/07/proxmox-ve-8-2-windows-11-vgpu-vt-d-passthrough-with-intel-alder-lake.html)
 
 这里我把主要的命令摘出来。
 
@@ -104,7 +104,7 @@ apt install build-* dkms
 cd ~/i915-sriov-dkms
 dkms add .
 ```
-构建新内核并检查```status```。验证它是否显示```installed```。
+构建新内核并检查内核模块安装状态，验证它是否显示```installed```。
 ```
 VERSION=$(dkms status -m i915-sriov-dkms | cut -d':' -f1)
 dkms install -m $VERSION --force
@@ -112,7 +112,7 @@ dkms status
 ```
 我没设置安全启动，直接跳到修改 systemd-boot 这步。
 ```
-/etc/kernel/cmdline
+vi /etc/kernel/cmdline
 ```
 __在第一行的后面添加！不要加到第二行去！__
 ```
